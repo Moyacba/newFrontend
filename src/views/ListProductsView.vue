@@ -106,8 +106,8 @@ export default {
   data() {
     return {
       fields: [
-        { key: "idProduct", label: "Código", sortable: true },
-        { key: "createdAt", label: "Fecha", sortable: true },
+        { key: "codigo", label: "Código", sortable: true },
+        /* { key: "createdAt", label: "Fecha", sortable: true }, */
         { key: "categoria", sortable: true },
         { key: "producto", sortable: true },
         {
@@ -122,7 +122,7 @@ export default {
       onLoader: true,
       perPage: 10,
       currentPage: 1,
-      sortBy: "idProduct",
+      sortBy: "",
       sortDesc: true,
       itemsRecord: [],
       products: [],
@@ -146,7 +146,7 @@ export default {
 
   mounted() {
     this.$forceUpdate();
-    axios.get(this.api + "/api/product").then((res) => {
+    axios.get(this.api + "/api/producto").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;

@@ -102,24 +102,25 @@ export default {
         if (res.status == 200) {
           let prevNota = this.Nota;
           this.Notes.push(prevNota);
-          this.agregarMovimiento("Agregar Nota", this.Nota.text);
+          /* this.agregarMovimiento("Agregar Nota", this.Nota.text); */
           this.Nota = {};
         }
       });
     },
 
     eliminarNota: function (row) {
-      axios.delete(this.api + "/api/notas" + row._id).then((res) => {
+      console.log(row)
+      axios.patch(this.api + '/api/notas', row).then((res) => {
         console.log(res.data);
-        /* if (res.status == 200) {
+        if (res.status == 200) {
           this.arraySumplente = [];
           for (let i = 0; i < this.Notes.length; i++) {
-            if (this.Notes[i]._id != row._id) {
+            if (this.Notes[i].nota != row.nota) {
               this.arraySumplente.push(this.Notes[i]);
             }
           }
           this.Notes = this.arraySumplente;
-        } */
+        }
       });
     },
 

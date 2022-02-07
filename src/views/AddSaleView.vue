@@ -186,46 +186,11 @@ export default {
             this.Venta.estado = 'Procesado';
             this.Venta.productos = finalCart;
 
-            this.registrarMovimiento(this.Venta);
-            
-            axios.post(this.api + '/api/sale', this.Venta)
+            /* this.registrarMovimiento(this.Venta); */
+            console.log(this.Venta)
+            axios.post(this.api + '/api/venta', this.Venta)
                 .then(res => {
-                    if (res.status == 200) {
-                        this.makeToast()
-                        this.deleteCart()
-                        for (const itemProduct of this.Venta.productos) {
-                            axios.put(this.api + '/api/product', itemProduct)
-                                .then(res => {
-                                    console.log(res.status)
-                                })
-                        }
-                        axios.get(this.api + '/api/box/' + this.idBox)
-                                .then(res => {
-                                    console.log('----------VENTA------------')
-                                    this.Box = res.data
-                                    this.Venta.total += 1
-                                    this.Venta.total -= 1
-                                    if (this.Venta.pago == 'Efectivo') {
-                                        this.Box.efectivoV += this.Venta.total
-                                    }
-                                    else if (this.Venta.pago == 'Débito') {
-                                        this.Box.debitoV += this.Venta.total
-                                    }
-                                    else if (this.Venta.pago == 'Crédito') {
-                                        this.Box.creditoV += this.Venta.total
-                                    }
-                                    console.log(this.Box)
-                                    axios.put(this.api + '/api/box', this.Box)
-                                        .then(res => {
-                                            console.log('Caja actualizada con exito')
-                                            console.log(res.status)
-                                            console.log('==================')
-                                        })
-                                })
-                    }
-                    else {
-                        this.makeToastError()
-                    }
+                    console.log(res.status)
                 }
             )
         },

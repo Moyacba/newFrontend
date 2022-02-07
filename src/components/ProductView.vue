@@ -174,7 +174,7 @@ export default {
         mostrar3: function (){
             // this.ProductPut.producto = this.Producto.producto
             this.ProductPut.producto = this.validar(this.Producto.producto, '-');
-            this.ProductPut.idProduct = this.Producto.idProduct;
+            this.ProductPut.codigo = this.Producto.codigo;
             this.ProductPut.categoria = this.validar(this.Producto.categoria, '-')
             this.ProductPut.stock = this.validar(this.Producto.stock, '0')
             this.ProductPut.precioCompra = this.validar(this.Producto.precioCompra, '0')
@@ -184,7 +184,7 @@ export default {
 
             this.registrarMovimiento(this.ProductPut)
 
-            axios.put(this.api + '/api/product', this.ProductPut)
+            axios.put(this.api + '/api/producto', this.ProductPut)
                 .then(res => {
                     if (res.status == 200) {
                         this.show = !this.show

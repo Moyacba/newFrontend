@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         date: moment(new Date()).local().format('DD-MM-YYYY'),/* 
         api: 'https://modotecno-api.herokussasasapp.com', */
-        api: 'http://localhost:4000',
+        api: 'http://localhost:5000',
         cart: [],
         cartSubtotal: 0,
         title: 'Producto state',
@@ -17,7 +17,7 @@ export default new Vuex.Store({
         boxState: 'Caja: Cerrada',
         openOrClose: '/Openbox',
         idBox: 1,
-        disVenta: true,
+        disVenta: false,
     },
     actions: {
         addToCart: ({commit}, product) => {

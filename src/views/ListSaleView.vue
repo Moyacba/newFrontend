@@ -93,7 +93,7 @@ export default {
   data() {
     return {
       fields: [
-        { key: "idVenta", label: "Código", sortable: true },
+        /* { key: "idVenta", label: "Código", sortable: true }, */
         { key: "createdAt", label: "Fecha", sortable: true },
         { key: "cliente", sortable: true },
         { key: "pago", sortable: true },
@@ -129,7 +129,7 @@ export default {
     },
   },
   mounted() {
-    axios.get(this.api + "/api/sale").then((res) => {
+    axios.get(this.api + "/api/venta").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;

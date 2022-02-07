@@ -4,6 +4,7 @@
           <b-col></b-col>
           <b-col cols="10">
               <b-card  header="Datos del Producto">
+                <b-form-input class="mt-2" v-model="Producto.codigo" placeholder="Código"></b-form-input>
                 <b-form-input class="mt-2" v-model="Producto.producto" placeholder="Producto"></b-form-input>
                   <b-row>
                       <b-col class="input" cols="8">
@@ -92,6 +93,7 @@ export default {
 
     methods: {
         mostrar2: function (){
+            this.Producto.codigo = this.validar(this.Producto.codigo, '-')
             this.Producto.producto = this.validar(this.Producto.producto, '-')
             this.Producto.categoria = this.validar(this.Producto.categoria, '-')
             this.Producto.stock = this.validar(this.Producto.stock, '0')
@@ -99,11 +101,11 @@ export default {
             this.Producto.precioVenta = this.validar(this.Producto.precioVenta, '0')
             this.Producto.proveedor = this.validar(this.Producto.proveedor, '-')
             this.Producto.detalles = this.validar(this.Producto.detalles, '-')
-            axios.post(this.api + '/api/product', (this.Producto))
+            axios.post(this.api + '/api/producto', (this.Producto))
                 .then(res => {
                     if (res.status == 200) {
                         this.makeToast()
-                        this.registrarMovimiento(this.Producto);
+                        /* this.registrarMovimiento(this.Producto); */
                     }
                     else {
                         this.makeToastError()
