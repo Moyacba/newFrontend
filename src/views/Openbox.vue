@@ -89,18 +89,14 @@ export default {
             this.Box.debitoS = 0
             this.Box.creditoS = 0
             this.Box.gastos = 0
-            this.Box.active = 1
-            axios.post(this.api + '/api/box', (this.Box))
+            this.Box.active = true
+            axios.post(this.api + '/api/caja', this.Box)
                 .then(res => {
                     if (res.status == 200) {
                         this.makeToast()
                         this.changeOpenOrClose('/Closebox')
                         this.changebox('Caja: Abierta')
                         this.changeDisVenta(false)
-                        axios.get(this.api + '/api/box')
-                            .then(ress => {
-                                this.changeidBox(ress.data[ress.data.length-1].idBox)
-                            })
                     }
                     else {
                         this.makeToastError()

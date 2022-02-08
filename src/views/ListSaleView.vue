@@ -93,8 +93,7 @@ export default {
   data() {
     return {
       fields: [
-        /* { key: "idVenta", label: "Código", sortable: true }, */
-        { key: "createdAt", label: "Fecha", sortable: true },
+        { key: "_id", label: "Código", sortable: true },
         { key: "cliente", sortable: true },
         { key: "pago", sortable: true },
         { key: "total", label: "Monto", sortable: true },

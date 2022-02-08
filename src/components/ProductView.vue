@@ -5,9 +5,19 @@
           <b-col cols="10">
               <b-card>
                 <div class="content">
-                    <div class="texto"><p class="mt-3">Producto:</p></div>
+                    <div class="texto"><p class="mt-3">Código:</p></div>
                     <b-form-input 
                         class="mt-2" 
+                        type="number" 
+                        v-model="Producto.codigo" 
+                        placeholder="Código"
+                    >
+                    </b-form-input>
+                </div>
+                <div class="content">
+                    <div class="texto"><p class="mt-2">Producto:</p></div>
+                    <b-form-input 
+                        
                         v-model="Producto.producto" 
                         placeholder="Producto"
                     >
@@ -151,6 +161,10 @@ export default {
         })
     },
 
+    created() {
+        console.log(this.Producto)
+    },
+
 
 
     methods: {
@@ -172,7 +186,7 @@ export default {
         },
 
         mostrar3: function (){
-            // this.ProductPut.producto = this.Producto.producto
+            this.ProductPut._id = this.validar(this.Producto._id, '-');
             this.ProductPut.producto = this.validar(this.Producto.producto, '-');
             this.ProductPut.codigo = this.Producto.codigo;
             this.ProductPut.categoria = this.validar(this.Producto.categoria, '-')
@@ -182,7 +196,7 @@ export default {
             this.ProductPut.proveedor = this.validar(this.Producto.proveedor, '-')
             this.ProductPut.detalles = this.validar(this.Producto.detalles, '-')
 
-            this.registrarMovimiento(this.ProductPut)
+            /* this.registrarMovimiento(this.ProductPut) */
 
             axios.put(this.api + '/api/producto', this.ProductPut)
                 .then(res => {

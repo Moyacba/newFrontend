@@ -3,9 +3,15 @@
       <b-row>
           <b-col></b-col>
           <b-col cols="10">
-              <b-card  header="Datos del Producto">
-                <b-form-input class="mt-2" v-model="Producto.codigo" placeholder="Código"></b-form-input>
-                <b-form-input class="mt-2" v-model="Producto.producto" placeholder="Producto"></b-form-input>
+              <b-card class="mt-3" header="Datos del Producto">
+                <b-row>
+                    <b-col class="input" cols="12">
+                        <b-form-input  v-model="Producto.producto" placeholder="Producto"></b-form-input>
+                    </b-col>
+                    <b-col class="input" cols="12">
+                        <b-form-input v-model="Producto.codigo" placeholder="Código"></b-form-input>
+                    </b-col>
+                </b-row>
                   <b-row>
                       <b-col class="input" cols="8">
                             <b-form-input list="selectCategoria" v-model="Producto.categoria" placeholder="Categoria"></b-form-input>

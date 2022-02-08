@@ -17,7 +17,7 @@ export default new Vuex.Store({
         boxState: 'Caja: Cerrada',
         openOrClose: '/Openbox',
         idBox: 1,
-        disVenta: false,
+        disVenta: true,
     },
     actions: {
         addToCart: ({commit}, product) => {
@@ -82,6 +82,7 @@ export default new Vuex.Store({
             state.descu = desc;
         },
         CHANGE_BOX: (state, boxState) => {
+            console.log('entro: ' + boxState)
             state.boxState = boxState;
         },
         CHANGE_OPENORCLOSE: (state, openOrClose) => {

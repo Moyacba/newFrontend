@@ -92,9 +92,8 @@ export default {
   data() {
     return {
       fields: [
-        { key: "idBox", label: "Código", sortable: true },
-        { key: "createdAt", label: "Fecha", sortable: true },
         { key: "turno", sortable: true },
+        { key: "active", sortable: true },
         { key: "inicio", sortable: true },
         { key: "efectivoV", label: "EfectivoV", sortable: true },
         { key: "debitoV", label: "DebitoV", sortable: true },
@@ -143,7 +142,7 @@ export default {
     },
   },
   mounted() {
-    axios.get(this.api + "/api/box").then((res) => {
+    axios.get(this.api + "/api/caja").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false

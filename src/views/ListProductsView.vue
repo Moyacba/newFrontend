@@ -182,13 +182,13 @@ export default {
       }
       this.llenarTabla(dato);
     },
+
     compararBusqueda: function (valor, tabla) {
       var Coincidencias = [];
-
+      console.log('-----------------------AQUI-----------------------')
       for (let i = 0; i < tabla.length; i++) {
-        var name = tabla[i].producto.toLowerCase();
-
-        if (name.includes(valor.toLowerCase())) {
+        var name = tabla[i].variabel;
+        if (name === parseInt(valor)) {
           Coincidencias.push(tabla[i]);
         }
       }
