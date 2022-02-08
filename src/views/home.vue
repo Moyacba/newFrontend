@@ -8,12 +8,13 @@
           </b-col>
           <b-col>
             <b-form-input
+              id="inputNota"
               v-model="Nota.nota"
               placeholder="Agregar nota"
             ></b-form-input>
           </b-col>
-          <b-col cols="1">
-            <b-button @click="agregarNota()" variant="info">+</b-button>
+          <b-col cols="1" class="p-0">
+            <b-button id="btnAgregar" @click="agregarNota()" variant="info">+</b-button>
           </b-col>
         </b-row>
       </b-card-title>
@@ -41,13 +42,13 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import moment from "moment";
-import Loader from "../components/Loader.vue"
+import Loader from "../components/Loader.vue";
 
 export default {
   name: "home",
 
   components: {
-    Loader
+    Loader,
   },
 
   data() {
@@ -109,8 +110,8 @@ export default {
     },
 
     eliminarNota: function (row) {
-      console.log(row)
-      axios.patch(this.api + '/api/notas', row).then((res) => {
+      console.log(row);
+      axios.patch(this.api + "/api/notas", row).then((res) => {
         console.log(res.data);
         if (res.status == 200) {
           this.arraySumplente = [];
@@ -140,4 +141,9 @@ export default {
 </script>
 
 <style>
+@media (max-width: 720px) {
+  #inputNota {
+    display: none;
+  }
+}
 </style>

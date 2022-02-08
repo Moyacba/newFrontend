@@ -13,7 +13,7 @@
 import vLottiePlayer from "vue-lottie-player";
 
 export default {
-  name: "Loader",
+  name: 'Loader',
   components: {
     vLottiePlayer,
   },
