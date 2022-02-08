@@ -66,7 +66,7 @@
             </template>
           </b-table>
         </div>
-        <Loader></Loader>
+        <Loader v-if="onLoader"></Loader>
         <div id="pag">
           <b-pagination
             aria-controls="tablaService"
@@ -117,9 +117,7 @@ export default {
   data() {
     return {
       fields: [
-        { key: "idServicio", label: "Codigo", sortable: true },
         { key: "cliente", sortable: true },
-        { key: "telefono", sortable: true },
         { key: "presupuesto", label: "Monto", sortable: true },
         { key: "producto", sortable: true },
         { key: "motivo", sortable: true },
@@ -172,7 +170,7 @@ export default {
 
   mounted() {
     this.$forceUpdate();
-    axios.get(this.api + "/api/service").then((res) => {
+    axios.get(this.api + "/api/servicio").then((res) => {
       this.items = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;

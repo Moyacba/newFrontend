@@ -62,8 +62,6 @@ export default {
     data() {
         return {
             fields:[
-                {key: 'idCompra', label:'Código', sortable: true,},
-                {key: 'createdAt', label:'Fecha', sortable: true},
                 {key: 'categoria', sortable: true},
                 {key: 'producto', sortable: true},
                 {key: 'cantidad', sortable: true, class:'text-center'},
@@ -82,7 +80,7 @@ export default {
     },
 
     mounted() {
-        axios.get(this.api + '/api/purchase')
+        axios.get(this.api + '/api/compra')
             .then(res => {
                 this.purchases = res.data
                 this.onLoader = false

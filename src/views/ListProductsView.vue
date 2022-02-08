@@ -177,21 +177,44 @@ export default {
     ////////////BUSQUEDA EN TABLA///////////////
     buscarEnTabla: function () {
       let dato = "";
+      let busqueda = parseInt(this.buscar);
       if (this.buscar != "") {
-        dato = this.compararBusqueda(this.buscar, this.itemsRecord);
+        if (busqueda) {
+          dato = this.compararBusqueda(busqueda, this.itemsRecord, "number");
+        } else {
+          dato = this.compararBusqueda(this.buscar, this.itemsRecord, "text");
+        }
       }
+      /* if (this.buscar != "") {
+        dato = this.compararBusqueda(this.buscar, this.itemsRecord);
+      } */
       this.llenarTabla(dato);
     },
 
-    compararBusqueda: function (valor, tabla) {
+    compararBusqueda: function (valor, tabla, opcion) {
       var Coincidencias = [];
-      console.log('-----------------------AQUI-----------------------')
-      for (let i = 0; i < tabla.length; i++) {
+      if (opcion == "number") {
+        for (let i = 0; i < tabla.length; i++) {
+          var number = tabla[i].codigo;
+          if (number === valor) {
+            Coincidencias.push(tabla[i]);
+          }
+        }
+      } else {
+        for (let i = 0; i < tabla.length; i++) {
+          console.log(valor)
+          var name = tabla[i].producto;
+          if (name.toLowerCase().includes(valor.toLowerCase())) {
+            Coincidencias.push(tabla[i]);
+          }
+        }
+      }
+      /* 
         var name = tabla[i].variabel;
         if (name === parseInt(valor)) {
           Coincidencias.push(tabla[i]);
         }
-      }
+      } */
 
       return Coincidencias;
     },
