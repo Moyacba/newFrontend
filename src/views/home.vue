@@ -35,6 +35,7 @@
         <loader v-if="onLoader"></loader>
       </b-card-body>
     </b-card>
+    <patron></patron>
   </b-container>
 </template>
 
@@ -43,12 +44,13 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import moment from "moment";
 import Loader from "../components/Loader.vue";
+import Patron from "../components/Patron.vue";
 
 export default {
   name: "home",
 
   components: {
-    Loader,
+    Loader, Patron
   },
 
   data() {

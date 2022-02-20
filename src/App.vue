@@ -26,7 +26,7 @@ export default {
   },
 
   created() {
-    axios.get("http://localhost:5000/api/caja/open").then((res) => {
+    axios.get("http://localhost:4000/api/caja/open").then((res) => {
       if (res.data != null) {
         console.log(res.data);
         this.changebox("Caja: Abierta");

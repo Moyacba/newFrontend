@@ -14,7 +14,7 @@
         <b-row>
           <b-col cols="6">
             <div class="content">
-              <div class="seleccion mr-2">Cliente:</div>
+              <div class="seleccion mr-3">Cliente:</div>
               <b-form-input disabled v-model="cliente" placeholder="cliente">
               </b-form-input>
             </div>
@@ -22,6 +22,14 @@
           <b-col cols="6">
             <div class="content">
               <div class="seleccion mr-2">Pago:</div>
+              <b-form-input class="" disabled v-model="pago"> </b-form-input>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row class="mt-2">
+          <b-col cols="12">
+            <div class="content">
+              <div class="seleccion mr-1">Telefono:</div>
               <b-form-input class="" disabled v-model="pago"> </b-form-input>
             </div>
           </b-col>
@@ -40,14 +48,82 @@
           <h6 class="mb-4">Datos del Servicio:</h6>
         </b-card-title>
 
+        <b-row><!-- ----------------------------------------------------- -->
+          <b-col cols="6">
+            <b-row>
+              <b-col cols="12">
+                <div class="content mt-2">
+                  <div class="seleccion mr-2">Producto1:</div>
+                  <b-form-input disabled v-model="producto"></b-form-input>
+                </div>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="12">
+                <div class="content mt-2">
+                  <div class="seleccion mr-2">Producto2:</div>
+                  <b-form-input disabled v-model="producto"></b-form-input>
+                </div>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="12">
+                <div class="content mt-2">
+                  <div class="seleccion mr-2">Producto3:</div>
+                  <b-form-input disabled v-model="producto"></b-form-input>
+                </div>
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col cols="6">
+            <div class="seleccion mr-2">Accesorios:</div>
+
+            <b-card id="cardCheck">
+              <b-form-checkbox-group
+                id="flavors"
+                v-model="selected"
+                :options="flavours"
+                name="flavors"
+                aria-label="Individual flavours"
+              ></b-form-checkbox-group>
+            </b-card>
+          </b-col>
+        </b-row><!-- ----------------------------------------------------- -->
         <b-row>
+          <b-col cols="6">
+            <div class="content mt-2">
+              <div class="seleccion mr-2">Producto3:</div>
+              <b-form-input disabled v-model="producto"></b-form-input>
+            </div>
+          </b-col>
+          <b-col cols="6">
+            <div class="content mt-2">
+              <div class="seleccion mr-2">Producto3:</div>
+              <b-form-input disabled v-model="producto"></b-form-input>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row class="mt-2">
+          <b-col cols="6">
+            <div class="content">
+              <div class="seleccion mr-2">Producto3:</div>
+              <b-form-input disabled v-model="producto"></b-form-input>
+            </div>
+          </b-col>
+          <b-col cols="6">
+            <div class="content">
+              <div class="seleccion mr-2">Producto3:</div>
+              <b-form-input disabled v-model="producto"></b-form-input>
+            </div>
+          </b-col>
+        </b-row>
+        <!-- <b-row>
           <b-col>
             <div class="content">
               <div class="seleccion mr-2">Producto:</div>
               <b-form-input disabled v-model="producto"></b-form-input>
             </div>
           </b-col>
-          <div>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa</div>
           <b-col>
             <b-form-input disabled v-model="motivo"></b-form-input>
           </b-col>
@@ -73,8 +149,8 @@
           <b-col>
             <b-form-input disabled v-model="detalles"></b-form-input>
           </b-col>
-        </b-row>
-        <b-row class="mt-4">
+        </b-row> -->
+        <!-- <b-row class="mt-4">
           <b-col cols="4">
             <b-form-input disabled v-model="estado"></b-form-input>
           </b-col>
@@ -91,7 +167,7 @@
           <b-col cols="6">
             <b-form-input disabled v-model="dateModifi"></b-form-input>
           </b-col>
-        </b-row>
+        </b-row> -->
         <b-row class="mt-4">
           <b-col>
             <b-button
@@ -311,6 +387,8 @@ export default {
         { value: "Débito", text: "Débito" },
         { value: "Crédito", text: "Crédito" },
       ],
+      flavours: ["SIM", "Funda", "Memoria.", "Caja", "Batería", "Cargador"],
+      selected: [],
       Service: { idService: "", estado: "" },
       ServicePre: { idService: "", presupuesto: "" },
       Movement: {},
@@ -471,5 +549,17 @@ export default {
 .content {
   display: flex;
   align-content: space-between;
+}
+#cardCheck {
+  height: 100px;
+  text-align: center;
+}
+#flavors {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-between;
 }
 </style>
