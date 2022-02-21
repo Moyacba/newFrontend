@@ -18,6 +18,7 @@ export default new Vuex.Store({
         openOrClose: '/Openbox',
         idBox: 1,
         disVenta: true,
+        patron: [],
     },
     actions: {
         addToCart: ({commit}, product) => {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
         },
         changeDisVenta: ({commit}, disVenta) => {
             commit('CHANGE_DISVENTA', disVenta)
+        },
+        changePatron: ({commit}, Patron) => {
+            commit('CHANGE_PATRON', Patron)
         },
     },
     mutations: {
@@ -94,6 +98,10 @@ export default new Vuex.Store({
         CHANGE_DISVENTA: (state, disVenta) => {
             state.disVenta = disVenta;
         },
+        CHANGE_PATRON: (state, Patron) => {
+            state.patron = Patron;
+            console.log(state.patron)
+        },
     },
     getters: {
         title: state => state.title,
@@ -107,5 +115,6 @@ export default new Vuex.Store({
         openOrClose: state => state.openOrClose,
         idBox: state => state.idBox,
         disVenta: state => state.disVenta,
+        patron: state => state.patron,
     },
 })

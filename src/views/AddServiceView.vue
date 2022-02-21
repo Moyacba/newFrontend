@@ -112,6 +112,18 @@
                               v-model="selectedAcc"
                               :options="optionsAccCel"
                             ></b-form-checkbox-group>
+                            <div v-if="selectedPass == 'patron'">
+                              <Patron></Patron>
+                            </div>
+                            <div v-if="selectedPass == 'pass'">
+                              <b-card>
+                                <b-card-header class="pt-0">
+                                  Ingrese contraseña:
+                                </b-card-header>
+                                <b-form-input v-model="servicePass">
+                                </b-form-input>
+                              </b-card>
+                            </div>
                           </div>
                         </b-row>
                       </div>
@@ -158,10 +170,12 @@
                     </b-col>
                   </b-row>
                   <b-row v-if="selectedCat != null" class="mb-2">
-                    <b-form-textarea
-                      v-model="Servicio.obsProducto"
-                      placeholder="Observaciones acerca del servicio"
-                    ></b-form-textarea>
+                    <b-col cols="6" class="p-0">
+                      <b-form-textarea
+                        v-model="Servicio.obsProducto"
+                        placeholder="Observaciones acerca del servicio"
+                      ></b-form-textarea>
+                    </b-col>
                   </b-row>
                 </b-card-body>
               </b-card>
@@ -256,9 +270,14 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
+import Patron from "../components/Patron.vue";
 
 export default {
   name: "AddServiceView",
+
+  components: {
+    Patron,
+  },
 
   data() {
     return {
@@ -339,6 +358,7 @@ export default {
         { value: "pass", text: "Contraseña" },
         { value: "patron", text: "Patrón" },
       ],
+      servicePass: ''
     };
   },
 
@@ -445,7 +465,7 @@ export default {
 
 <style>
 #divAcc {
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
   padding: 0px;
