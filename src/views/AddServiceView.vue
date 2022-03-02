@@ -75,18 +75,20 @@
                       </b-row>
                       <b-row class="mb-2">
                         <b-form-input
-                          v-model="Servicio.presupuesto"
+                          v-model="Servicio.total"
                           placeholder="Presupuesto"
                         ></b-form-input>
                       </b-row>
-                      <b-row class="mb-2">
-                        <b-form-input
-                          v-model="Servicio.senia"
-                          placeholder="Seña"
-                        ></b-form-input>
+                      <b-row v-if="selectedCat != null" class="mb-2">
+                        <b-col cols="12" class="p-0">
+                          <b-form-textarea
+                            v-model="Servicio.obsProducto"
+                            placeholder="Observaciones acerca del servicio"
+                          ></b-form-textarea>
+                        </b-col>
                       </b-row>
                     </b-col>
-                    <b-col v-if="selectedCat == 'celular'" cols="6">
+                    <b-col v-if="selectedCat == 'Celular'" cols="6">
                       <div class="ml-2">
                         <b-row class="mb-2">
                           <b-form-select
@@ -128,27 +130,49 @@
                         </b-row>
                       </div>
                     </b-col>
-                    <b-col v-if="selectedCat == 'notebook'" cols="6">
+                    <b-col v-if="selectedCat == 'Tablet'" cols="6">
                       <div class="ml-2">
+                        <b-row class="mb-2">
+                          <b-form-select
+                            v-model="selectedSIM"
+                            :options="optionsSIM"
+                          ></b-form-select>
+                        </b-row>
+                        <b-row class="mb-2">
+                          <b-form-select
+                            v-model="selectedSD"
+                            :options="optionsSD"
+                          ></b-form-select>
+                        </b-row>
                         <b-row class="mb-2">
                           <b-form-select
                             v-model="selectedPass"
                             :options="optionsPass"
                           ></b-form-select>
                         </b-row>
-                        <b-row class="ml-1 mt-4">
-                          <div id="divAccNot">
+                        <b-row>
+                          <div id="divAcc">
                             <b-form-checkbox-group
-                              id="divNot"
                               v-model="selectedAcc"
-                              :options="optionsAccNot"
-                              stacked
+                              :options="optionsAccCel"
                             ></b-form-checkbox-group>
+                            <div v-if="selectedPass == 'patron'">
+                              <Patron></Patron>
+                            </div>
+                            <div v-if="selectedPass == 'pass'">
+                              <b-card>
+                                <b-card-header class="pt-0">
+                                  Ingrese contraseña:
+                                </b-card-header>
+                                <b-form-input v-model="servicePass">
+                                </b-form-input>
+                              </b-card>
+                            </div>
                           </div>
                         </b-row>
                       </div>
                     </b-col>
-                    <b-col v-if="selectedCat == 'computadora'" cols="6">
+                    <b-col v-if="selectedCat == 'Notebook'" cols="6">
                       <div class="ml-2">
                         <b-row class="mb-2">
                           <b-form-select
@@ -156,26 +180,69 @@
                             :options="optionsPass"
                           ></b-form-select>
                         </b-row>
-                        <b-row class="ml-1 mt-4">
-                          <div id="divAccNot">
+                        <b-row id="divAccNot" class="mt-2">
+                          <div>
                             <b-form-checkbox-group
                               id="divNot"
+                              class="mr-5"
+                              v-model="selectedAcc"
+                              :options="optionsAccNot"
+                              stacked
+                            ></b-form-checkbox-group>
+                            <div v-if="selectedPass == 'pass'">
+                              <b-card>
+                                <b-card-header class="pt-0 pb-1">
+                                  Ingrese contraseña:
+                                </b-card-header>
+                                <b-form-input v-model="servicePass">
+                                </b-form-input>
+                              </b-card>
+                            </div>
+                          </div>
+                        </b-row>
+                      </div>
+                    </b-col>
+                    <b-col v-if="selectedCat == 'Computadora'" cols="6">
+                      <div class="ml-2">
+                        <b-row class="mb-2">
+                          <b-form-select
+                            v-model="selectedPass"
+                            :options="optionsPass"
+                          ></b-form-select>
+                        </b-row>
+                        <b-row id="divAccNot" class="mt-2">
+                          <div>
+                            <b-form-checkbox-group
+                              id="divNot"
+                              class="ml-2"
                               v-model="selectedAcc"
                               :options="optionsAccCom"
                               stacked
                             ></b-form-checkbox-group>
+                            <div v-if="selectedPass == 'pass'">
+                              <b-card>
+                                <b-card-header class="pt-0 pb-1">
+                                  Ingrese contraseña:
+                                </b-card-header>
+                                <b-form-input v-model="servicePass">
+                                </b-form-input>
+                              </b-card>
+                            </div>
                           </div>
                         </b-row>
                       </div>
                     </b-col>
                   </b-row>
-                  <b-row v-if="selectedCat != null" class="mb-2">
-                    <b-col cols="6" class="p-0">
-                      <b-form-textarea
-                        v-model="Servicio.obsProducto"
-                        placeholder="Observaciones acerca del servicio"
-                      ></b-form-textarea>
-                    </b-col>
+
+                  <b-row class="mb-2">
+                    <b-button
+                      id="btnObsTecn"
+                      variant="info"
+                      block
+                      @click="modalPagos = !modalPagos"
+                    >
+                      - Seña - {{ Seña.pago }} {{ Seña.metodo }}
+                    </b-button>
                   </b-row>
                 </b-card-body>
               </b-card>
@@ -252,6 +319,42 @@
           </b-card> -->
 
           <!-- :disabled="estadoVenta" -->
+
+          <b-modal
+            v-model="modalPagos"
+            title="Seña"
+            centered
+            hide-footer
+            static
+          >
+            <b-row>
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Seña.pago"
+                  placeholder="Seña"
+                ></b-form-input>
+              </b-col>
+              <b-col cols="6">
+                <b-form-select
+                  v-model="selectedSeña"
+                  :options="optionsSeña"
+                  placeholder="Metodo"
+                ></b-form-select>
+              </b-col>
+            </b-row>
+            <b-row class="mt-4">
+              <b-col cols="12">
+                <b-button
+                  @click="agregarSeña(), (modalPagos = !modalPagos)"
+                  block
+                  variant="success"
+                >
+                  Confirmar
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-modal>
+
           <b-button
             to="/"
             @click="addService()"
@@ -268,9 +371,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 import Patron from "../components/Patron.vue";
+import moment from "moment";
 
 export default {
   name: "AddServiceView",
@@ -281,12 +385,23 @@ export default {
 
   data() {
     return {
+      passModal: true,
+      modalPagos: false,
+      time: "",
       Servicio: {},
       Movement: {},
       Box: {},
       seña: null,
       celular: true,
       estadoVenta: true,
+      Seña: { fecha: "", pago: "", metodo: "" },
+      selectedSeña: null,
+      optionsSeña: [
+        { value: null, text: "Seleccionar Metodo" },
+        { value: "Efectivo", text: "Efectivo" },
+        { value: "Debito", text: "Debito" },
+        { value: "Credito", text: "Credito" },
+      ],
       selectedSIM: null,
       optionsSIM: [
         { value: null, text: "Contiene tarjeta SIM?" },
@@ -308,7 +423,7 @@ export default {
         { value: "64GB", text: "64GB" },
         { value: "128GB", text: "128GB" },
       ],
-      selectedAcc: ["bateria"],
+      selectedAcc: [],
       optionsAccCel: [
         { text: "Batería", value: "bateria" },
         { text: "Funda", value: "funda" },
@@ -343,27 +458,28 @@ export default {
       selectedCat: null,
       optionsCat: [
         { value: null, text: "Categoría" },
-        { value: "celular", text: "Celular" },
-        { value: "notebook", text: "Notebook" },
-        { value: "computadora", text: "Computadora" },
-        { value: "parlante", text: "Parlante" },
-        { value: "torno", text: "Torno" },
-        { value: "monitor", text: "Monitor" },
-        { value: "otro", text: "Otro" },
+        { value: "Celular", text: "Celular" },
+        { value: "Tablet", text: "Tablet" },
+        { value: "Notebook", text: "Notebook" },
+        { value: "Computadora", text: "Computadora" },
+        { value: "Parlante", text: "Parlante" },
+        { value: "Torno", text: "Torno" },
+        { value: "Monitor", text: "Monitor" },
+        { value: "Otro", text: "Otro" },
       ],
       selectedPass: null,
       optionsPass: [
         { value: null, text: "Contiene contraseña?" },
-        { value: "No", text: "No" },
+        { value: "no", text: "No" },
         { value: "pass", text: "Contraseña" },
         { value: "patron", text: "Patrón" },
       ],
-      servicePass: ''
+      servicePass: "",
     };
   },
 
   computed: {
-    ...mapGetters(["date", "api", "idBox", "disVenta"]),
+    ...mapGetters(["date", "api", "idBox", "disVenta", "patron"]),
   },
 
   mounted() {
@@ -372,6 +488,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["changePatron"]),
+
     addService: function () {
       /* this.Servicio.repuesto = 0; */
 
@@ -380,29 +498,37 @@ export default {
       this.Servicio.telefono2 = this.validar(this.Servicio.telefono2, "-");
       this.Servicio.obsCliente = this.validar(this.Servicio.obsCliente, "-");
 
-      this.Servicio.categoria = this.validar(this.Servicio.categoria, "-");
+      this.Servicio.categoria = this.validar(this.selectedCat, "-");
       this.Servicio.marca = this.validar(this.Servicio.marca, "-");
       this.Servicio.motivo = this.validar(this.Servicio.motivo, "-");
-      this.Servicio.presupuesto = this.validar(this.Servicio.presupuesto, "0");
-      this.Servicio.senia = [this.validar(this.Servicio.senia, "0")];
+      this.Servicio.total = this.validar(this.Servicio.total, "0");
       this.Servicio.obsProducto = this.validar(this.Servicio.obsProducto, "-");
-      this.Servicio.contrasenia = this.Servicio.selectedPass;
+      this.Servicio.contrasenia = this.validarPass(this.selectedPass);
+
+      this.Servicio.pagos = [];
+      if (this.Seña.pago != "") {
+        this.Seña.fecha = moment().format("YYYY-MM-DD HH:mm:ss");
+        this.Servicio.pagos = this.Seña;
+      }
 
       this.Servicio.sim = this.validar(this.selectedSIM, "-");
       this.Servicio.sd = this.validar(this.selectedSD, "-");
       this.Servicio.acc = this.validar(this.selectedAcc, "-");
 
-      this.Servicio.dato1 = [];
-      this.Servicio.dato2 = [];
-      this.Servicio.dato3 = [];
+      this.Servicio.dato1 = [{ dato: "" }, { dato: "" }];
+      this.Servicio.dato2 = [{ dato: "" }, { dato: "" }];
+      this.Servicio.dato3 = [{ dato: "" }, { dato: "" }];
 
       this.Servicio.estado = "Sin revisar";
-      this.Servicio.pago = "-";
       this.Servicio.obsTecnico = this.validar(this.Servicio.obsTecnico, "-");
+
+      this.Servicio.fechaIn = moment().format("YYYY-MM-DD HH:mm:ss");
+      this.Servicio.fechaOut = "-";
+
       axios.post(this.api + "/api/servicio", this.Servicio).then((res) => {
         if (res.status == 200) {
           this.makeToast();
-          console.log(this.Servicio);
+          this.changePatron("");
           /* this.Movement.usuario = this.validar(
             this.Movement.usuario,
             "Sin definir"
@@ -441,6 +567,20 @@ export default {
       }
     },
 
+    validarPass: function (pass) {
+      if (pass == "patron") {
+        return this.patron;
+      } else if (pass == "pass") {
+        return this.servicePass;
+      } else if (pass == "no") {
+        return "No registró contraseña";
+      }
+    },
+
+    agregarSeña: function () {
+      this.Seña.metodo = this.selectedSeña;
+    },
+
     makeToast(append = false) {
       this.$bvToast.toast("El Servicio se registró con éxito", {
         title: "Servicio registrado!",
@@ -471,6 +611,18 @@ export default {
   padding: 0px;
   height: 38px;
   width: 100%;
+}
+#divNot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+  height: 38px;
+  width: 100%;
+}
+#divAccNot {
+  display: flex;
+  flex-direction: column;
 }
 .cardTitle {
   display: flex;

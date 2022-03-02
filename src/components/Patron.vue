@@ -2,8 +2,8 @@
   <div v-if="visible" class="padre">
     <div>
       <b-card class="carta">
-        <b-card-header align="center" class="pt-0 pb-2 mb-3">
-          Dibuje el patron
+        <b-card-header v-if="flagPass" align="center" class="pt-0 pb-2 mb-3">
+          {{titulo}}
         </b-card-header>
         <b-row id="row1">
           <b-col id="col1" cols="4">
@@ -80,7 +80,7 @@
             </b-button>
           </b-col>
         </b-row>
-        <b-card-footer class="mt-4 px-1">
+        <b-card-footer v-if="flagPass" class="mt-4 px-1">
           <div class="contFooter">
             <b-btn size="sm" variant="success"
             @click="addPatron()"
@@ -101,8 +101,12 @@ import { mapActions } from "vuex";
 export default {
   name: "Patron",
 
+  props:['PatronActual'],
+
   data() {
     return {
+      titulo: 'Dibuje el patron',
+      flagPass: true,
       visible: true,
       patron: [],
       contBtn: 0,
@@ -122,6 +126,56 @@ export default {
         { btn: "9", state: false, value: "" },
       ],
     };
+  },
+
+  mounted() {
+    if(this.PatronActual != null){
+      this.titulo = 'Patron'
+      this.flagPass = false
+      for (let i = 0; i < this.PatronActual.length; i++) {
+        switch (this.PatronActual[i]) {
+          case '1':
+            this.btns1[0].state = true
+            this.btns1[0].value = i+1
+            break;
+          case '2':
+            this.btns1[1].state = true
+            this.btns1[1].value = i+1
+            break;
+          case '3':
+            this.btns1[2].state = true
+            this.btns1[2].value = i+1
+            break;
+          case '4':
+            this.btns2[0].state = true
+            this.btns2[0].value = i+1
+            break;
+          case '5':
+            this.btns2[1].state = true
+            this.btns2[1].value = i+1
+            break;
+          case '6':
+            this.btns2[2].state = true
+            this.btns2[2].value = i+1
+            break;
+          case '7':
+            this.btns3[0].state = true
+            this.btns3[0].value = i+1
+            break;
+          case '8':
+            this.btns3[1].state = true
+            this.btns3[1].value = i+1
+            break;
+          case '9':
+            this.btns3[2].state = true
+            this.btns3[2].value = i+1
+            break;
+        
+          default:
+            break;
+        }
+      }
+    }
   },
 
   methods: {

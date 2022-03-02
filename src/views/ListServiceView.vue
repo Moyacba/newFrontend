@@ -80,25 +80,14 @@
     </b-card>
     <b-modal
       v-model="editarShow"
-      title="Servicio Técnico"
       centered
+      hide-header
       hide-footer
-      size="lg"
+      size="xl"
       static
     >
       <ServiceView
-        :idServicio="idServicio"
-        :dateService="dateService"
-        :dateModifi="dateModifi"
-        :cliente="cliente"
-        :telefono="telefono"
-        :presupuesto="presupuesto"
-        :producto="producto"
-        :motivo="motivo"
-        :estado="estado"
-        :detalles="detalles"
-        :pago="pago"
-        :btnCambiar="btnCambiar"
+        :Servicio="SERVICIO"
       >
       </ServiceView>
     </b-modal>
@@ -150,6 +139,8 @@ export default {
       btnCambiar: false,
       varianteSE: "outline-primary",
       varianteTodos: "primary",
+
+      SERVICIO: {},
 
       arrayprueba: [
         { name: "jose", age: 23 },
@@ -203,17 +194,18 @@ export default {
       return color;
     },
     editService: function (Service) {
-      this.idServicio = Service.idServicio;
-      this.dateService = Service.createdAt;
-      this.dateModifi = Service.updatedAt;
-      this.cliente = Service.cliente;
-      this.telefono = Service.telefono;
-      this.presupuesto = Service.presupuesto;
-      this.producto = Service.producto;
-      this.motivo = Service.motivo;
-      this.estado = Service.estado;
-      this.detalles = Service.detalles;
-      this.pago = Service.pago;
+      this.SERVICIO = Service
+      // this.idServicio = Service.idServicio;
+      // this.dateService = Service.createdAt;
+      // this.dateModifi = Service.updatedAt;
+      // this.cliente = Service.cliente;
+      // this.telefono = Service.telefono;
+      // this.presupuesto = Service.presupuesto;
+      // this.producto = Service.producto;
+      // this.motivo = Service.motivo;
+      // this.estado = Service.estado;
+      // this.detalles = Service.detalles;
+      // this.pago = Service.pago;
       if (this.estado == "Entregado") {
         this.btnCambiar = true;
       } else {

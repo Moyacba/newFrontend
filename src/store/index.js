@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         date: moment(new Date()).local().format('DD-MM-YYYY'),/* 
         api: 'https://modotecno-api.herokussasasapp.com', */
-        api: 'http://localhost:4000',
+        api: 'http://localhost:5000',
         cart: [],
         cartSubtotal: 0,
         title: 'Producto state',
@@ -100,7 +100,6 @@ export default new Vuex.Store({
         },
         CHANGE_PATRON: (state, Patron) => {
             state.patron = Patron;
-            console.log(state.patron)
         },
     },
     getters: {

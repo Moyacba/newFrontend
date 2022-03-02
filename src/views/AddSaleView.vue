@@ -251,7 +251,6 @@ export default {
         },
         aprobarVenta: function() {
             if (this.paga < (this.subtotal - this.descuento)) {
-                console.log('----------VENTA------------')
                 
                 return true
             }

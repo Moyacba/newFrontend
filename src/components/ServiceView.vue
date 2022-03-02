@@ -1,378 +1,807 @@
 <template>
   <b-container>
-    <b-card>
-      <b-card-title>
-        <b-container class="cardTitle">
-          <h4>Registro:</h4>
-          <h5 class="mt-1">{{ dateService }}</h5>
-        </b-container>
-      </b-card-title>
-      <b-card>
-        <b-card-title>
-          <h6 class="mb-4">Datos del cliente:</h6>
-        </b-card-title>
-        <b-row>
-          <b-col cols="6">
-            <div class="content">
-              <div class="seleccion mr-3">Cliente:</div>
-              <b-form-input disabled v-model="cliente" placeholder="cliente">
-              </b-form-input>
-            </div>
-          </b-col>
-          <b-col cols="6">
-            <div class="content">
-              <div class="seleccion mr-2">Pago:</div>
-              <b-form-input class="" disabled v-model="pago"> </b-form-input>
-            </div>
-          </b-col>
-        </b-row>
-        <b-row class="mt-2">
-          <b-col cols="12">
-            <div class="content">
-              <div class="seleccion mr-1">Telefono:</div>
-              <b-form-input class="" disabled v-model="pago"> </b-form-input>
-            </div>
-          </b-col>
-        </b-row>
-        <b-row class="mt-2 mb-2">
-          <b-col>
-            <div class="content">
-              <div class="seleccion mr-2">Detalles:</div>
-              <b-form-input disabled v-model="detalles"></b-form-input>
-            </div>
-          </b-col>
-        </b-row>
-      </b-card>
-      <b-card class="mt-2">
-        <b-card-title>
-          <h6 class="mb-4">Datos del Servicio:</h6>
-        </b-card-title>
-
-        <b-row><!-- ----------------------------------------------------- -->
-          <b-col cols="6">
-            <b-row>
-              <b-col cols="12">
-                <div class="content mt-2">
-                  <div class="seleccion mr-2">Producto1:</div>
-                  <b-form-input disabled v-model="producto"></b-form-input>
-                </div>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="12">
-                <div class="content mt-2">
-                  <div class="seleccion mr-2">Producto2:</div>
-                  <b-form-input disabled v-model="producto"></b-form-input>
-                </div>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="12">
-                <div class="content mt-2">
-                  <div class="seleccion mr-2">Producto3:</div>
-                  <b-form-input disabled v-model="producto"></b-form-input>
-                </div>
-              </b-col>
-            </b-row>
-          </b-col>
-          <b-col cols="6">
-            <div class="seleccion mr-2">Accesorios:</div>
-
-            <b-card id="cardCheck">
-              <b-form-checkbox-group
-                id="flavors"
-                v-model="selected"
-                :options="flavours"
-                name="flavors"
-                aria-label="Individual flavours"
-              ></b-form-checkbox-group>
-            </b-card>
-          </b-col>
-        </b-row><!-- ----------------------------------------------------- -->
-        <b-row>
-          <b-col cols="6">
-            <div class="content mt-2">
-              <div class="seleccion mr-2">Producto3:</div>
-              <b-form-input disabled v-model="producto"></b-form-input>
-            </div>
-          </b-col>
-          <b-col cols="6">
-            <div class="content mt-2">
-              <div class="seleccion mr-2">Producto3:</div>
-              <b-form-input disabled v-model="producto"></b-form-input>
-            </div>
-          </b-col>
-        </b-row>
-        <b-row class="mt-2">
-          <b-col cols="6">
-            <div class="content">
-              <div class="seleccion mr-2">Producto3:</div>
-              <b-form-input disabled v-model="producto"></b-form-input>
-            </div>
-          </b-col>
-          <b-col cols="6">
-            <div class="content">
-              <div class="seleccion mr-2">Producto3:</div>
-              <b-form-input disabled v-model="producto"></b-form-input>
-            </div>
-          </b-col>
-        </b-row>
-        <!-- <b-row>
-          <b-col>
-            <div class="content">
-              <div class="seleccion mr-2">Producto:</div>
-              <b-form-input disabled v-model="producto"></b-form-input>
-            </div>
-          </b-col>
-          <b-col>
-            <b-form-input disabled v-model="motivo"></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row class="mt-4">
-          <b-col cols="4">
-            <b-form-input disabled v-model="presupuesto"></b-form-input>
-          </b-col>
-          <b-col cols="2">
-            <b-button
-              :disabled="btnCambiar"
-              variant="info"
-              v-b-modal.presupuestoShow
-            >
-              Cambiar
-            </b-button>
-          </b-col>
-          <b-col>
-            <b-form-input disabled v-model="pago"></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row class="mt-4">
-          <b-col>
-            <b-form-input disabled v-model="detalles"></b-form-input>
-          </b-col>
-        </b-row> -->
-        <!-- <b-row class="mt-4">
-          <b-col cols="4">
-            <b-form-input disabled v-model="estado"></b-form-input>
-          </b-col>
-          <b-col cols="2">
-            <b-button
-              @click="cambiar(estado)"
-              :disabled="btnCambiar"
-              variant="info"
-              v-b-modal.estadoShow
-            >
-              Cambiar
-            </b-button>
-          </b-col>
-          <b-col cols="6">
-            <b-form-input disabled v-model="dateModifi"></b-form-input>
-          </b-col>
-        </b-row> -->
-        <b-row class="mt-4">
-          <b-col>
-            <b-button
-              v-b-modal.entregarShow
-              block
-              variant="success"
-              :disabled="btnCambiar"
-              @click="igualarTotal(presupuesto)"
-            >
-              ENTREGAR
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-card>
-      <b-modal id="estadoShow" centered hide-footer title="Cambiar estado">
-        <b-row>
-          <b-col>
-            <b-form-select
-              v-model="seleccion"
-              :options="opcionesEstado"
-            ></b-form-select>
-          </b-col>
-        </b-row>
-        <b-row class="mt-4">
-          <b-col>
-            <b-button
-              block
-              to="/Service"
-              variant="success"
-              @click="cambiarEstado(idServicio, seleccion)"
-            >
-              Confirmar cambio de estado
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-modal>
-      <b-modal
-        id="presupuestoShow"
-        centered
-        hide-footer
-        title="Cambiar de presupuesto"
-      >
-        <b-row>
-          <b-col>
-            <b-form-input type="number" v-model="prePresupuesto"></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row class="mt-4">
-          <b-col>
-            <b-button
-              block
-              to="/"
-              variant="success"
-              @click="cambiarPresupuesto(idServicio, prePresupuesto)"
-            >
-              Confirmar cambio de presupuesto
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-modal>
-      <b-modal
-        id="entregarShow"
-        centered
-        hide-footer
-        title="Entregar servicio"
-        size="lg"
-      >
+    <b-row>
+      <b-col></b-col>
+      <b-col cols="12">
         <b-card>
-          <b-card>
+          <b-card-title class="">
+            <div class="cardTitle">
+              <h4>Nueva orden de servicio</h4>
+            </div>
+          </b-card-title>
+          <b-row>
+            <b-col cols="4">
+              <b-card>
+                <b-card-title class="mb-0">
+                  <div class="cardTitle">
+                    <p class="stlTitulos mt-1">Datos del cliente</p>
+                    <p v-if="Servicio.estado != 'Entregado'">
+                      <b-btn
+                        variant="white"
+                        pill
+                        size="sm"
+                        @click="editCliente = !editCliente"
+                      >
+                        <b-icon icon="pen" font-scale="1"></b-icon>
+                      </b-btn>
+                    </p>
+                  </div>
+                </b-card-title>
+                <b-card-body>
+                  <b-row class="mb-2">
+                    <b-input-group prepend="Nombre ::::">
+                      <b-form-input
+                        v-model="Servicio.cliente"
+                        :disabled="editCliente"
+                      ></b-form-input>
+                    </b-input-group>
+                  </b-row>
+                  <b-row class="mb-2">
+                    <b-input-group prepend="Telefono 1:">
+                      <b-form-input
+                        v-model="Servicio.telefono1"
+                        :disabled="editCliente"
+                      ></b-form-input>
+                    </b-input-group>
+                  </b-row>
+                  <b-row class="mb-2">
+                    <b-input-group prepend="Telefono 2:">
+                      <b-form-input
+                        v-model="Servicio.telefono2"
+                        :disabled="editCliente"
+                      ></b-form-input>
+                    </b-input-group>
+                  </b-row>
+                  <b-row class="mb-2">
+                    <b-input-group prepend="Observaci.:">
+                      <b-form-textarea
+                        v-model="Servicio.obsCliente"
+                        :disabled="editCliente"
+                      ></b-form-textarea>
+                    </b-input-group>
+                  </b-row>
+                </b-card-body>
+              </b-card>
+            </b-col>
+            <b-col cols="8">
+              <b-card>
+                <b-card-title class="mb-0">
+                  <div class="cardTitle">
+                    <p class="stlTitulos mt-1">Datos del servicio</p>
+                    <p v-if="Servicio.estado != 'Entregado'">
+                      <b-btn
+                        variant="white"
+                        pill
+                        size="sm"
+                        @click="editServicio = !editServicio"
+                      >
+                        <b-icon icon="pen" font-scale="1"></b-icon>
+                      </b-btn>
+                    </p>
+                  </div>
+                </b-card-title>
+                <b-card-body>
+                  <b-row>
+                    <b-col cols="6">
+                      <b-row class="mb-2">
+                        <b-input-group prepend="Ingreso :">
+                          <b-form-input
+                            v-model="Servicio.fechaIn"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-input-group prepend="Modelo :">
+                          <b-form-input
+                            v-model="Servicio.marca"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-input-group prepend="Motivo :">
+                          <b-form-input
+                            v-model="Servicio.motivo"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-input-group prepend="Presupuesto :">
+                          <b-form-input
+                            v-model="Servicio.total"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-input-group prepend="Tarjeta SIM :">
+                          <b-form-input
+                            v-model="Servicio.sim"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-input-group prepend="Memoria SD :">
+                          <b-form-input
+                            v-model="Servicio.sd"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-button
+                          id="btnObsTecn"
+                          variant="dark"
+                          block
+                          v-b-modal="'modalObsTecn'"
+                        >
+                          Observaciones técnicas
+                        </b-button>
+                      </b-row>
+                      <b-row class="mb-2">
+                        <b-button
+                          id="btnObsTecn"
+                          variant="info"
+                          block
+                          @click="
+                            (modalPagos = !modalPagos),
+                              mostrarPagos(Servicio.pagos)
+                          "
+                        >
+                          Pagos
+                        </b-button>
+                      </b-row>
+                    </b-col>
+                    <b-col v-if="Servicio.categoria == 'Celular'" cols="6">
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Categoría :">
+                          <b-form-input
+                            v-model="Servicio.categoria"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Acc :">
+                          <b-form-input
+                            v-model="Servicio.acc"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <div id="col2">
+                        <b-col cols="12">
+                          <b-row
+                            class="mt-4 ml-4"
+                            v-if="Servicio.contrasenia.length > 1"
+                          >
+                            <Patron
+                              :PatronActual="Servicio.contrasenia"
+                            ></Patron>
+                          </b-row>
+                          <b-row
+                            class="mb-2"
+                            v-if="Servicio.contrasenia.length < 2"
+                          >
+                            <b-input-group prepend="Contrasenia">
+                              <b-form-input
+                                :disabled="editServicio"
+                                v-model="Servicio.contrasenia[0]"
+                              >
+                              </b-form-input>
+                            </b-input-group>
+                          </b-row>
+                          <b-row v-if="Servicio.contrasenia.length < 2">
+                            <b-input-group prepend="Observación :">
+                              <b-form-textarea
+                                :disabled="editServicio"
+                                v-model="Servicio.obsProducto"
+                              >
+                              </b-form-textarea>
+                            </b-input-group>
+                          </b-row>
+                        </b-col>
+                      </div>
+                    </b-col>
+                    <b-col v-if="Servicio.categoria == 'Tablet'" cols="6">
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Categoría :">
+                          <b-form-input
+                            v-model="Servicio.categoria"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Acc :">
+                          <b-form-input
+                            v-model="Servicio.acc"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <div id="col2">
+                        <b-col cols="12">
+                          <b-row
+                            class="mt-4 ml-4"
+                            v-if="Servicio.contrasenia.length > 1"
+                          >
+                            <Patron
+                              :PatronActual="Servicio.contrasenia"
+                            ></Patron>
+                          </b-row>
+                          <b-row
+                            class="mb-2"
+                            v-if="Servicio.contrasenia.length < 2"
+                          >
+                            <b-input-group prepend="Contrasenia">
+                              <b-form-input
+                                :disabled="editServicio"
+                                v-model="Servicio.contrasenia[0]"
+                              >
+                              </b-form-input>
+                            </b-input-group>
+                          </b-row>
+                          <b-row v-if="Servicio.contrasenia.length < 2">
+                            <b-input-group prepend="Observación :">
+                              <b-form-textarea
+                                :disabled="editServicio"
+                                v-model="Servicio.obsProducto"
+                              >
+                              </b-form-textarea>
+                            </b-input-group>
+                          </b-row>
+                        </b-col>
+                      </div>
+                    </b-col>
+                    <b-col v-if="Servicio.categoria == 'Notebook'" cols="6">
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Categoría :">
+                          <b-form-input
+                            v-model="Servicio.categoria"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Acc :">
+                          <b-form-input
+                            v-model="Servicio.acc"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <div id="col2">
+                        <b-col cols="12">
+                          <b-row
+                            class="mt-2 ml-4"
+                            v-if="Servicio.contrasenia.length > 1"
+                          >
+                            <Patron
+                              :PatronActual="Servicio.contrasenia"
+                            ></Patron>
+                          </b-row>
+                          <b-row
+                            class="mb-2"
+                            v-if="Servicio.contrasenia.length < 2"
+                          >
+                            <b-input-group prepend="Contrasenia">
+                              <b-form-input
+                                :disabled="editServicio"
+                                v-model="Servicio.contrasenia[0]"
+                              >
+                              </b-form-input>
+                            </b-input-group>
+                          </b-row>
+                          <b-row v-if="Servicio.contrasenia.length < 2">
+                            <b-input-group prepend="Observación :">
+                              <b-form-textarea
+                                :disabled="editServicio"
+                                v-model="Servicio.obsProducto"
+                              >
+                              </b-form-textarea>
+                            </b-input-group>
+                          </b-row>
+                        </b-col>
+                      </div>
+                    </b-col>
+                    <b-col v-if="Servicio.categoria == 'Computadora'" cols="6">
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Categoría :">
+                          <b-form-input
+                            v-model="Servicio.categoria"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <b-row class="mb-2 ml-0">
+                        <b-input-group prepend="Acc :">
+                          <b-form-input
+                            v-model="Servicio.acc"
+                            :disabled="editServicio"
+                          ></b-form-input>
+                        </b-input-group>
+                      </b-row>
+                      <div id="col2">
+                        <b-col cols="12">
+                          <b-row
+                            class="mt-2 ml-4"
+                            v-if="Servicio.contrasenia.length > 1"
+                          >
+                            <Patron
+                              :PatronActual="Servicio.contrasenia"
+                            ></Patron>
+                          </b-row>
+                          <b-row
+                            class="mb-2"
+                            v-if="Servicio.contrasenia.length < 2"
+                          >
+                            <b-input-group prepend="Contrasenia">
+                              <b-form-input
+                                :disabled="editServicio"
+                                v-model="Servicio.contrasenia[0]"
+                              >
+                              </b-form-input>
+                            </b-input-group>
+                          </b-row>
+                          <b-row v-if="Servicio.contrasenia.length < 2">
+                            <b-input-group prepend="Observación :">
+                              <b-form-textarea
+                                :disabled="editServicio"
+                                v-model="Servicio.obsProducto"
+                              >
+                              </b-form-textarea>
+                            </b-input-group>
+                          </b-row>
+                        </b-col>
+                      </div>
+                    </b-col>
+                  </b-row>
+                  <b-row v-if="!(Servicio.contrasenia.length < 2)">
+                    <b-input-group prepend="Observación :">
+                      <b-form-textarea
+                        :disabled="editServicio"
+                        v-model="Servicio.obsProducto"
+                      >
+                      </b-form-textarea>
+                    </b-input-group>
+                  </b-row>
+                </b-card-body>
+              </b-card>
+            </b-col>
+          </b-row>
+          <!-- <b-card>
+            <b-card-title class="ml-2 mb-3">
+              <h6>Datos del Cliente</h6>
+            </b-card-title>
             <b-row>
-              <b-col>
-                <b-form-input disabled v-model="cliente"></b-form-input>
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Servicio.cliente"
+                  placeholder="Nombre"
+                ></b-form-input>
               </b-col>
-              <b-col>
-                <b-form-select
-                  :options="opcionesPago"
-                  v-model="metodoPago"
-                ></b-form-select>
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Servicio.telefono"
+                  placeholder="Teléfono"
+                ></b-form-input>
+              </b-col>
+            </b-row>
+          </b-card>
+          <b-card class="mt-3">
+            <b-card-title class="ml-2">
+              <h6>Datos del Producto</h6>
+            </b-card-title>
+            <b-row class="mt-4">
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Servicio.producto"
+                  placeholder="Producto (Marca y Modelo)"
+                ></b-form-input>
+              </b-col>
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Servicio.categoria"
+                  placeholder="Categoría del producto"
+                ></b-form-input>
               </b-col>
             </b-row>
             <b-row class="mt-4">
-              <b-col>
-                <b-form-input v-model="detalles"></b-form-input>
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Servicio.motivo"
+                  placeholder="Ingresa por"
+                ></b-form-input>
+              </b-col>
+              <b-col cols="6">
+                <b-form-input
+                  v-model="Servicio.presupuesto"
+                  placeholder="Presupuesto"
+                ></b-form-input>
               </b-col>
             </b-row>
-          </b-card>
-          <div class="end mt-4">
-            <h6>Subtotal: {{ presupuesto }}</h6>
-          </div>
-          <div class="end mt-2">
-            <h6>Descuento: {{ Dinero.descuento }}</h6>
-          </div>
-          <div class="end mt-2">
-            <h5>Total: {{ this.Dinero.total }}</h5>
-          </div>
+            <b-row class="mt-4">
+              <b-col cols="12">
+                <b-form-input
+                  type="number"
+                  v-model="seña"
+                  placeholder="Seña"
+                ></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="mt-4">
+              <b-col cols="12">
+                <b-form-input
+                  v-model="Servicio.detalles"
+                  placeholder="Detalles"
+                ></b-form-input>
+              </b-col>
+            </b-row>
+          </b-card> -->
 
-          <div class="contenedorBtnModal mt-4">
-            <div>
-              <b-button v-b-modal.descuentoShow variant="secondary">
-                Descuento
-              </b-button>
-            </div>
-            <div>
-              <b-button
-                v-b-modal.pagoShow
-                variant="success"
-                :disabled="estadoVenta"
-              >
-                Entregar
-              </b-button>
-            </div>
-          </div>
-        </b-card>
-      </b-modal>
-      <b-modal
-        id="descuentoShow"
-        centered
-        hide-footer
-        title="Aplicar descuento"
-        size="sm"
-      >
-        <div class="center">
-          <b-form-input
-            v-model="Dinero.prev"
-            palceholder="Descuento"
-          ></b-form-input>
-        </div>
-        <b-button
-          class="mt-4"
-          block
-          variant="success"
-          @click="
-            aplicarDescuento(Dinero.prev, presupuesto),
-              $bvModal.hide('descuentoShow')
-          "
-        >
-          Aplicar
-        </b-button>
-      </b-modal>
-      <b-modal id="pagoShow" centered hide-footer title="Pago">
-        <div>
-          <b-card class="mb-3">
-            <div class="mb-3">
-              <h6>Total:</h6>
-              <b-form-input size="lg" v-model="Dinero.total"> </b-form-input>
-            </div>
-            <div class="mb-3">
-              <h6>Paga con:</h6>
-              <b-form-input size="lg" v-model="Dinero.pagaCon"> </b-form-input>
-            </div>
-          </b-card>
-          <div>
-            <b-button
-              v-b-modal.vueltoShow
-              variant="success"
-              block
-              @click="vuelto()"
-            >
-              OK
-            </b-button>
-          </div>
-        </div>
-      </b-modal>
-      <b-modal id="vueltoShow" centered hide-footer title="Entregar producto">
-        <div>
-          <div class="mb-3">
-            <h6>Vuelto:</h6>
-            <b-form-input size="lg" :value="Dinero.vuelto"> </b-form-input>
-          </div>
+          <!-- :disabled="estadoVenta" -->
+
+          <!-- Guardar cambios -->
           <b-button
-            variant="success"
+            v-if="!editCliente || !editServicio"
+            v-b-modal="'confirmarEdicion'"
+            class="mt-3"
             block
-            @click="cambiarEstado(idServicio, 'Entregado')"
-            to="/"
+            variant="info"
           >
-            OK
+            Guardar cambios
           </b-button>
-        </div>
-      </b-modal>
-    </b-card>
+
+          <!-- Entregar -->
+          <b-button
+            v-if="Servicio.estado != 'Entregado'"
+            v-b-modal="'finalEntrega'"
+            @click="mostrarPagos(Servicio.pagos)"
+            class="mt-3"
+            block
+            variant="success"
+            >Entregar</b-button
+          >
+
+          <!-- Pagos -->
+          <b-modal
+            v-model="modalPagos"
+            title="Pagos"
+            size="lg"
+            centered
+            hide-footer
+            static
+          >
+            <b-card>
+              <b-table
+                id="tablaService"
+                :fields="fieldsPagos"
+                :items="itemsPagos"
+                hover
+                striped
+                sort-icon-left
+              >
+              </b-table>
+              <b-card-footer class="mt-5">
+                <div id="footerPagos">
+                  <h5>Total a pagar : ${{ Servicio.total }}</h5>
+                  <div id="footerPagos" v-if="Servicio.estado != 'Entregado'">
+                    <h5>Faltante: $</h5>
+                    <h5 v-if="!(this.faltantePago > 0)">0</h5>
+                    <h5 v-if="this.faltantePago > 0">
+                      {{ this.faltantePago }}
+                    </h5>
+                  </div>
+                </div>
+              </b-card-footer>
+            </b-card>
+
+            <b-row v-if="Servicio.estado != 'Entregado'">
+              <b-col cols="12">
+                <b-button
+                  block
+                  variant="success"
+                  @click="modalAddPago = !modalAddPago"
+                  >Agregar Pago</b-button
+                >
+              </b-col>
+            </b-row>
+          </b-modal>
+
+          <!-- Agregar Pago -->
+          <b-modal
+            v-model="modalAddPago"
+            title="Agregar pago"
+            centered
+            hide-footer
+            static
+          >
+            <b-card class="mb-3">
+              <div class="mb-3">
+                <h6>Metodo de pago:</h6>
+                <b-form-select
+                  size="lg"
+                  v-model="selectedPago"
+                  :options="optionsPago"
+                  placeholder="Metodo"
+                ></b-form-select>
+              </div>
+              <div class="mb-3">
+                <h6>Paga:</h6>
+                <b-form-input
+                  :disabled="!selectedPago"
+                  size="lg"
+                  v-model="Seña.pago"
+                  placeholder="0"
+                >
+                </b-form-input>
+              </div>
+            </b-card>
+
+            <b-row class="mt-4">
+              <b-col cols="12">
+                <b-button
+                  @click="
+                    agregarPago(Servicio.pagos, Servicio),
+                      (modalAddPago = !modalAddPago)
+                  "
+                  :disabled="!Seña.pago"
+                  block
+                  variant="success"
+                >
+                  Confirmar
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-modal>
+
+          <!-- Ultimo Detalle -->
+          <b-modal
+            id="finalEntrega"
+            title="Ultimos detalles"
+            centered
+            hide-title
+            hide-footer
+            button-size="block"
+          >
+            <div>
+              <b-card class="mb-3">
+                <div class="mb-3">
+                  <h6>Total a liquidar:</h6>
+                  <b-form-input size="lg" disabled v-model="faltantePago">
+                  </b-form-input>
+                </div>
+                <div class="mb-3">
+                  <h6>Metodo de pago:</h6>
+                  <b-form-select
+                    size="lg"
+                    v-model="selectedPago"
+                    :options="optionsPago"
+                    placeholder="Metodo"
+                  ></b-form-select>
+                </div>
+                <div class="mb-3">
+                  <h6>Paga:</h6>
+                  <b-form-input
+                    :disabled="!selectedPago"
+                    size="lg"
+                    v-model="paga"
+                    placeholder="0"
+                  >
+                  </b-form-input>
+                </div>
+              </b-card>
+              <div>
+                <b-button
+                  :disabled="aprobarEntrega()"
+                  v-b-modal="'vuelto'"
+                  variant="success"
+                  block
+                >
+                  OK
+                </b-button>
+              </div>
+            </div>
+          </b-modal>
+
+          <!-- Vuelto -->
+          <b-modal
+            id="vuelto"
+            title="Vuelto"
+            centered
+            hide-title
+            hide-footer
+            button-size="block"
+          >
+            <div>
+              <div class="mb-3">
+                <h6>Debe darle al cliente:</h6>
+                <b-form-input disabled size="lg" :value="vuelto()">
+                </b-form-input>
+              </div>
+              <b-button @click="entregar()" variant="success" block to="/">
+                OK
+              </b-button>
+            </div>
+          </b-modal>
+
+          <!-- Seguridad -->
+          <b-modal
+            id="confirmarEdicion"
+            title="Seguridad"
+            centered
+            hide-title
+            hide-footer
+          >
+            <b-form-input type="password" v-model="passEdicion"></b-form-input>
+            <b-button @click="edicion()" class="mt-3" block variant="success"
+              >Confirmar</b-button
+            >
+          </b-modal>
+
+          <!-- Observaciones tecnicas -->
+          <b-modal
+            id="modalObsTecn"
+            title="Observaciones técnicas"
+            size="lg"
+            centered
+            hide-title
+            hide-footer
+          >
+            <b-card
+              v-if="
+                Servicio.categoria == 'Computadora' ||
+                Servicio.categoria == 'Notebook'
+              "
+            >
+              <b-card class="mt-1">
+                <h6>Windows:</h6>
+                <b-row>
+                  <b-col cols="6">
+                    <b-input-group prepend="Entra con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                  <b-col cols="6">
+                    <b-input-group prepend="Sale con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                </b-row>
+              </b-card>
+              <b-card class="mt-1">
+                <h6>Disco:</h6>
+                <b-row>
+                  <b-col cols="6">
+                    <b-input-group prepend="Entra con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                  <b-col cols="6">
+                    <b-input-group prepend="Sale con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                </b-row>
+              </b-card>
+              <b-card class="mt-1">
+                <h6>Memoria RAM:</h6>
+                <b-row>
+                  <b-col cols="6">
+                    <b-input-group prepend="Entra con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                  <b-col cols="6">
+                    <b-input-group prepend="Sale con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                </b-row>
+              </b-card>
+            </b-card>
+
+            <b-card
+              v-if="
+                Servicio.categoria == 'Celular' ||
+                Servicio.categoria == 'Tablet'
+              "
+            >
+              <b-card class="mt-1">
+                <h6>Version de Android/IOS:</h6>
+                <b-row>
+                  <b-col cols="6">
+                    <b-input-group prepend="Entra con: ">
+                      <b-form-input v-model="Servicio.dato1"></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                  <b-col cols="6">
+                    <b-input-group prepend="Sale con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                </b-row>
+              </b-card>
+              <b-card class="mt-1">
+                <h6>Version de banda base:</h6>
+                <b-row>
+                  <b-col cols="6">
+                    <b-input-group prepend="Entra con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                  <b-col cols="6">
+                    <b-input-group prepend="Sale con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                </b-row>
+              </b-card>
+              <b-card class="mt-1">
+                <h6>IMEI:</h6>
+                <b-row>
+                  <b-col cols="6">
+                    <b-input-group prepend="Entra con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                  <b-col cols="6">
+                    <b-input-group prepend="Sale con: ">
+                      <b-form-input></b-form-input>
+                    </b-input-group>
+                  </b-col>
+                </b-row>
+              </b-card>
+            </b-card>
+          </b-modal>
+        </b-card>
+      </b-col>
+      <b-col></b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import Patron from "../components/Patron.vue";
+import moment from "moment";
 
 export default {
   name: "ServiceView",
+
+  components: {
+    Patron,
+  },
+
   props: [
-    "idServicio",
-    "dateService",
-    "dateModifi",
-    "cliente",
-    "telefono",
-    "presupuesto",
-    "producto",
-    "motivo",
-    "estado",
-    "detalles",
-    "pago",
-    "btnCambiar",
+    "Servicio",
+    // "idServicio",
+    // "dateService",
+    // "dateModifi",
+    // "cliente",
+    // "telefono",
+    // "presupuesto",
+    // "producto",
+    // "motivo",
+    // "estado",
+    // "detalles",
+    // "pago",
+    // "btnCambiar",
   ],
   data() {
     return {
+      modalObsTecn: false,
+      passEdicion: "",
+      paga: "",
+      modalEntregar: false,
+      modalAddPago: false,
+      Seña: { fecha: "", pago: "", metodo: "" },
+      modalPagos: false,
       seleccion: "Sin",
       prePresupuesto: 0,
       opcionesEstado: [
@@ -396,6 +825,22 @@ export default {
       Box: {},
       metodoPago: "Efectivo",
       estadoVenta: true,
+      editCliente: true,
+      editServicio: true,
+      itemsPagos: [],
+      fieldsPagos: [
+        { key: "pago", sortable: true },
+        { key: "metodo", sortable: true },
+        { key: "fecha", sortable: true },
+      ],
+      selectedPago: null,
+      optionsPago: [
+        { value: null, text: "Seleccionar Metodo" },
+        { value: "Efectivo", text: "Efectivo" },
+        { value: "Debito", text: "Debito" },
+        { value: "Credito", text: "Credito" },
+      ],
+      faltantePago: 0,
     };
   },
 
@@ -484,10 +929,6 @@ export default {
       this.Dinero.total = subtotal - this.Dinero.descuento;
     },
 
-    vuelto: function () {
-      this.Dinero.vuelto = this.Dinero.pagaCon - this.Dinero.total;
-    },
-
     mostrar(id, estado) {
       if (this.Dinero.vuelto != 0) {
         console.log("Cambiamos el total");
@@ -495,6 +936,47 @@ export default {
         console.log("No cambiamos el total");
       }
       console.log(id, estado);
+    },
+
+    edicion: function () {
+      if (this.passEdicion == "2244") {
+        axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
+          if (res.status == 200) {
+            this.makeToastPago();
+          } else {
+            this.makeToastnt();
+          }
+        });
+      }
+    },
+
+    mostrarPagos(obj) {
+      this.itemsPagos = obj;
+      let acumulado = 0;
+      for (const i of this.Servicio.pagos) {
+        acumulado += parseInt(i.pago);
+      }
+      this.faltantePago = this.Servicio.total - acumulado;
+    },
+
+    agregarPago: function (pagos, servicio) {
+      let pagosLet = pagos;
+      let ServicioFinal = servicio;
+
+      this.Seña.metodo = this.selectedPago;
+      this.Seña.fecha = moment().format("YYYY-MM-DD HH:mm:ss");
+
+      pagosLet.push(this.Seña);
+      ServicioFinal.pagos = pagosLet;
+
+      console.log("antes");
+      axios.put(this.api + "/api/servicio/", ServicioFinal).then((res) => {
+        if (res.status == 200) {
+          this.makeToastPago();
+          this.modalPagos = !this.modalPagos;
+          this.Seña = { fecha: "", pago: "", metodo: "" };
+        }
+      });
     },
 
     cambiarPresupuesto(id, presupuesto) {
@@ -510,6 +992,55 @@ export default {
         this.cliente,
         this.idServicio
       );
+    },
+
+    entregar() {
+      let ultPago = {};
+      ultPago.pago = this.paga;
+      ultPago.metodo = this.selectedPago;
+      ultPago.fecha = moment().format("YYYY-MM-DD HH:mm:ss");
+
+      this.Servicio.pagos.push(ultPago);
+      this.Servicio.estado = "Entregado";
+
+      axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
+        if (res.status == 200) {
+          this.makeToastPago();
+        } else {
+          this.makeToastnt();
+        }
+      });
+    },
+
+    aprobarEntrega() {
+      if (this.faltantePago - this.paga <= 0) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+
+    vuelto() {
+      return this.paga - this.faltantePago;
+    },
+
+    makeToastPago(append = false) {
+      this.$bvToast.toast("Se registró con éxito", {
+        title: "Registrado!",
+        autoHideDelay: 1000,
+        variant: "success",
+        solid: true,
+        appendToast: append,
+      });
+    },
+    makeToastnt(append = false) {
+      this.$bvToast.toast("Problemas en registro", {
+        title: "Error!",
+        autoHideDelay: 1000,
+        variant: "danger",
+        solid: true,
+        appendToast: append,
+      });
     },
   },
 };
@@ -560,6 +1091,15 @@ export default {
   width: 100%;
   flex-wrap: wrap;
   align-content: space-between;
+  justify-content: space-between;
+}
+#col2 {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+}
+#footerPagos {
+  display: flex;
   justify-content: space-between;
 }
 </style>

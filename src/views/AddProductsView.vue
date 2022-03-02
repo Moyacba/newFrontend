@@ -1,9 +1,9 @@
 <template>
-  <b-container fluid="sm" class="mt-5">
+  <b-container fluid="sm" class="mt-0">
       <b-row>
           <b-col></b-col>
           <b-col cols="10">
-              <b-card class="mt-3" header="Datos del Producto">
+              <b-card class="mt-0" header="Datos del Producto">
                 <b-row>
                     <b-col class="input" cols="12">
                         <b-form-input  v-model="Producto.producto" placeholder="Producto"></b-form-input>
