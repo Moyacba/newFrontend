@@ -486,6 +486,7 @@
                 sort-icon-left
               >
               </b-table>
+
               <b-card-footer class="mt-5">
                 <div id="footerPagos">
                   <h5>Total a pagar : ${{ Servicio.total }}</h5>
@@ -1002,6 +1003,26 @@ export default {
 
       this.Servicio.pagos.push(ultPago);
       this.Servicio.estado = "Entregado";
+
+      axios.get(this.api + "/api/caja/open").then((res) => {
+        console.log("----------VENTA------------");
+        console.log(res.data);
+        this.Box = res.data;
+        this.Servicio.total += 1;
+        this.Servicio.total -= 1;
+        if (this.Servicio.pago == "Efectivo") {
+          this.Box.efectivoS += this.Servicio.total;
+        } else if (this.Venta.pago == "Débito") {
+          this.Box.debitoS += this.Servicio.total;
+        } else if (this.Venta.pago == "Crédito") {
+          this.Box.creditoS += this.Servicio.total;
+        }
+        axios.put(this.api + "/api/caja", this.Box).then((res) => {
+          console.log("Servicio actualizado con exito");
+          console.log(res.status);
+          console.log("==================");
+        });
+      });
 
       axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
         if (res.status == 200) {
