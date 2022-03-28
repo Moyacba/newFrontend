@@ -83,9 +83,10 @@
     <b-modal
       v-model="itemShow"
       centered
+      scrollable
       title="Datos del Producto"
       hide-footer
-      size="lg"
+      size="xl"
     >
       <ProductView :Producto="productEdit"></ProductView>
     </b-modal>

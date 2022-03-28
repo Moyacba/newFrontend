@@ -14,7 +14,9 @@
             ></b-form-input>
           </b-col>
           <b-col cols="1" class="p-0">
-            <b-button id="btnAgregar" @click="agregarNota()" variant="info">+</b-button>
+            <b-button id="btnAgregar" @click="agregarNota()" variant="info"
+              >+</b-button
+            >
           </b-col>
         </b-row>
       </b-card-title>
@@ -34,6 +36,8 @@
         </b-table>
         <loader v-if="onLoader"></loader>
       </b-card-body>
+
+
     </b-card>
   </b-container>
 </template>
@@ -79,6 +83,7 @@ export default {
   },
 
   methods: {
+
     now: () => {
       moment.locale("es");
       var day = moment().format("HH:mm:ss");

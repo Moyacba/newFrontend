@@ -19,6 +19,8 @@ export default new Vuex.Store({
         idBox: 1,
         disVenta: true,
         patron: [],
+        imgObj: null,
+        imgPrev: null,
     },
     actions: {
         addToCart: ({commit}, product) => {
@@ -50,6 +52,12 @@ export default new Vuex.Store({
         },
         changePatron: ({commit}, Patron) => {
             commit('CHANGE_PATRON', Patron)
+        },
+        changeImgObj: ({commit}, imgObj) => {
+            commit('CHANGE_IMGOBJ', imgObj)
+        },
+        changeImgPrev: ({commit}, imgPrev) => {
+            commit('CHANGE_IMGPREV', imgPrev)
         },
     },
     mutations: {
@@ -101,6 +109,12 @@ export default new Vuex.Store({
         CHANGE_PATRON: (state, Patron) => {
             state.patron = Patron;
         },
+        CHANGE_IMGOBJ: (state, imgObj) => {
+            state.imgObj = imgObj;
+        },
+        CHANGE_IMGPREV: (state, imgPrev) => {
+            state.imgPrev = imgPrev;
+        },
     },
     getters: {
         title: state => state.title,
@@ -115,5 +129,7 @@ export default new Vuex.Store({
         idBox: state => state.idBox,
         disVenta: state => state.disVenta,
         patron: state => state.patron,
+        imgObj: state => state.imgObj,
+        imgPrev: state => state.imgPrev,
     },
 })
