@@ -2,13 +2,27 @@
   <div>
     <form class="mt-2" v-on:submit.prevent="upload">
       <input
-      class="form-control"
+        class="form-control"
         id="file-input"
         type="file"
         accept="image/png, image/jpg, image/jpeg"
         @change="handleFileChange($event)"
       />
-      <button class="mt-2 btn btn-info" type="submit">Actualizar foto</button>
+      <b-row>
+        <b-col cols="8">
+          <button :disabled="disImgAct" class="mt-2 btn btn-info" type="submit">
+            Actualizar foto
+          </button>
+        </b-col>
+        <b-col cols="4">
+          <b-button
+            class="mt-2"
+            :disabled="disImgView"
+            v-on:click="$emit('imgView', imgSecureUrl)"
+            >ImgView</b-button
+          >
+        </b-col>
+      </b-row>
     </form>
 
     <!-- <div class="mt-4" v-if="results && results.secure_url">
@@ -41,6 +55,9 @@ export default {
       formData: "",
       results: "",
       errors: [],
+      imgSecureUrl: "",
+      disImgAct: true,
+      disImgView: true,
     };
   },
 
@@ -56,6 +73,7 @@ export default {
       console.log("handlefilechange: ", event.target.files);
       this.file = event.target.files[0];
       this.filesSelected = event.target.files.length;
+      this.disImgAct = false
     },
     upload: function () {
       let reader = new FileReader();
@@ -74,14 +92,18 @@ export default {
           Axios(requestObj)
             .then((res) => {
               this.results = res.data;
+              this.imgSecureUrl = this.results.secure_url;
               console.log("Results: ", this.results);
               console.log("public_id", this.results.public_id);
 
               axios
-                .put(this.api + "/api/producto/img/" + this.producto_id, {data: this.results.secure_url})
+                .put(this.api + "/api/producto/img/" + this.producto_id, {
+                  data: this.results.secure_url,
+                })
                 .then((res) => {
                   if (res.status == 200) {
-                    console.log('Se guardo imagen')
+                    console.log("Se guardo imagen");
+                    this.disImgView = false;
                   }
                 });
             })
@@ -101,7 +123,6 @@ export default {
       this.formData = new FormData();
       this.formData.append("upload_preset", this.preset);
       this.formData.append("tags", "unsigned upload");
-      console.log("this.fileResize: ", this.fileResize);
       this.formData.append("file", this.fileResize);
     },
 
@@ -144,7 +165,7 @@ export default {
   justify-content: center;
   margin-bottom: 20px;
 }
-.btn{
+.btn {
   width: 100%;
 }
 </style>

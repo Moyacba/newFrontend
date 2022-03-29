@@ -97,7 +97,7 @@
 
           <b-row>
             <b-col cols="12" class="mt-3">
-              <b-button @click="pedirPass()" variant="success" block>
+              <b-button @click="mostrar3()" variant="success" block>
                 Actualizar
               </b-button>
             </b-col>
@@ -105,7 +105,11 @@
 
           <b-row>
             <b-col cols="12">
-              <ImageUpload :producto_id="Producto._id"></ImageUpload>
+              <ImageUpload 
+                :producto_id="Producto._id"
+                v-on:imgView="imgfunc"
+              >
+              </ImageUpload>
             </b-col>
           </b-row>
 
@@ -183,11 +187,24 @@ export default {
     }),
   },
 
-  created() {
-    console.log(this.Producto);
-  },
+  // created() {
+  //   console.log(this.Producto);
+  // },
 
   methods: {
+    imgfunc: function(a){
+      this.Producto.img = a
+    },
+
+    actualizarProducto() {
+      axios.get(this.api + "/api/producto/" + this.Producto._id).then((res) => {
+        if (res.status == 200) {
+          this.Producto.img = res.data.img;
+          console.log('Este producto: ',this.Producto);
+        }
+      });
+    },
+
     addPhoto: async function () {
       var Data = new FormData(document.forms.namedItem("fileinfo"));
 
@@ -197,6 +214,7 @@ export default {
       // console.log(fd)
       await axios.post(this.api + "/img/", Data).then((res) => {
         if (res.status == 200) {
+          this.actualizarProducto()
           console.log("Imagen actualizada con exito");
         }
       });

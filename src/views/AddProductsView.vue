@@ -145,6 +145,7 @@ export default {
       this.Producto.precioVenta = this.validar(this.Producto.precioVenta, "0");
       this.Producto.proveedor = this.validar(this.Producto.proveedor, "-");
       this.Producto.detalles = this.validar(this.Producto.detalles, "-");
+      this.Producto.img = '',
 
       axios.post(this.api + "/api/producto", this.Producto).then((res) => {
         if (res.status == 200) {

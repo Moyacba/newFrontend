@@ -26,7 +26,7 @@ export default {
   },
 
   created() {
-    axios.get("http://localhost:5000/api/caja/open").then((res) => {
+    axios.get("http://192.168.43.112:5000/api/caja/open").then((res) => {
       if (res.data != null) {
         console.log(res.data);
         this.changebox("Caja: Abierta");
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style>
-@media (max-width: 720px) {
+/* @media (max-width: 720px) {
   .separador {
     margin-top: 120px;
   }
@@ -47,7 +47,7 @@ export default {
     background: blue;
     height: 1000px;
   }
-}
+} */
 
 @media (min-width: 720px) {
   .separador {

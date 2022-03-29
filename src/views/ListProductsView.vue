@@ -88,7 +88,10 @@
       hide-footer
       size="xl"
     >
-      <ProductView :Producto="productEdit"></ProductView>
+      <ProductView 
+        :Producto="productEdit"
+        >
+      </ProductView>
     </b-modal>
   </b-container>
 </template>
