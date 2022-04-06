@@ -37,7 +37,7 @@
         <loader v-if="onLoader"></loader>
       </b-card-body>
 
-
+    <CompDePrueba></CompDePrueba>
     </b-card>
   </b-container>
 </template>
@@ -47,12 +47,14 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import moment from "moment";
 import Loader from "../components/Loader.vue";
+import CompDePrueba from "../components/CompDePrueba.vue";
 
 export default {
   name: "home",
 
   components: {
-    Loader
+    Loader,
+    CompDePrueba
   },
 
   data() {

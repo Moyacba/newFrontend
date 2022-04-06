@@ -36,6 +36,11 @@
             striped
             sort-icon-left
           >
+            <template v-slot:cell(fecha)="row">
+              <div>
+                {{fechaVenta(row.item)}}
+              </div>
+            </template>
             <template v-slot:cell(productos)> 1 </template>
             <template v-slot:cell(Agregar)="row">
               <b-button
@@ -93,7 +98,7 @@ export default {
   data() {
     return {
       fields: [
-        { key: "_id", label: "Código", sortable: true },
+        { key: "fecha", label: "Fecha", sortable: true, class: "text-center" },
         { key: "cliente", sortable: true },
         { key: "pago", sortable: true },
         { key: "total", label: "Monto", sortable: true },
@@ -111,7 +116,7 @@ export default {
       productsSale: [],
       subtotalSale: 0,
       dateSale: "",
-      sortBy: "idVenta",
+      sortBy: "fecha",
       sortDesc: true,
 
       perPage: 10,
@@ -135,6 +140,13 @@ export default {
     });
   },
   methods: {
+    fechaVenta(item){
+      if(item.fecha){
+        let dateVenta = new Date(item.fecha).toLocaleString().split(',', 1)[0]
+        return dateVenta
+      }
+    },
+
     ///////////////////////////////////////////
     ////////////AGREGAR VENTA//////////////////
 

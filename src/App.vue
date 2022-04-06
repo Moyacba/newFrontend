@@ -26,7 +26,7 @@ export default {
   },
 
   created() {
-    axios.get("http://192.168.43.112:5000/api/caja/open").then((res) => {
+    axios.get("http://192.168.43.171:5000/api/caja/open").then((res) => {
       if (res.data != null) {
         console.log(res.data);
         this.changebox("Caja: Abierta");

@@ -144,7 +144,7 @@
                       <b-row class="mb-2">
                         <b-button
                           id="btnObsTecn"
-                          variant="info"
+                          variant="primary"
                           block
                           @click="
                             (modalPagos = !modalPagos),
@@ -152,6 +152,14 @@
                           "
                         >
                           Pagos
+                        </b-button>
+                      </b-row>
+                      <b-row>
+                        <b-button
+                          variant="info"
+                          v-b-modal="'cambiarEstado'"
+                        >
+                          Cambiar estado
                         </b-button>
                       </b-row>
                     </b-col>
@@ -466,6 +474,16 @@
             variant="success"
             >Entregar</b-button
           >
+          
+          <b-modal
+            v-model="cambiarEstado"
+            title="Cambiar estado"
+            size="lg"
+            centered
+            hide-footer
+            static
+          >
+          </b-modal>
 
           <!-- Pagos -->
           <b-modal

@@ -4,6 +4,9 @@
       <b-col></b-col>
       <b-col cols="10">
         <b-card>
+          <div>
+            {{fechaProducto}}
+          </div>
           <b-row>
             <b-col cols="6">
               <div class="content">
@@ -179,6 +182,7 @@ export default {
       passwordView: false,
       Movement: {},
       passrefresh: "",
+      fechaProducto: '',
     };
   },
   computed: {
@@ -187,9 +191,12 @@ export default {
     }),
   },
 
-  // created() {
-  //   console.log(this.Producto);
-  // },
+  created() {
+    if (this.Producto.fecha){
+      let fecha = this.Producto.fecha
+      this.fechaProducto = new Date(fecha).toLocaleString().split(',', 1)[0]
+    }
+  },
 
   methods: {
     imgfunc: function(a){

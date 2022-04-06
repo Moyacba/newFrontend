@@ -204,6 +204,7 @@ export default {
         },
 
         cerrarCaja: function (){
+            this.Box.fechaOut = new Date()
             this.Box.active = false
             axios.put(this.api + '/api/caja/close', this.Box)
                 .then(res => {

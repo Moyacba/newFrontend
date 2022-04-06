@@ -374,7 +374,6 @@
 import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 import Patron from "../components/Patron.vue";
-import moment from "moment";
 
 export default {
   name: "AddServiceView",
@@ -399,8 +398,8 @@ export default {
       optionsSeña: [
         { value: null, text: "Seleccionar Metodo" },
         { value: "Efectivo", text: "Efectivo" },
-        { value: "Debito", text: "Debito" },
-        { value: "Credito", text: "Credito" },
+        { value: "Debito", text: "Débito" },
+        { value: "Credito", text: "Crédito" },
       ],
       selectedSIM: null,
       optionsSIM: [
@@ -496,7 +495,7 @@ export default {
       this.Servicio.cliente = this.validar(this.Servicio.cliente, "-");
       this.Servicio.telefono1 = this.validar(this.Servicio.telefono1, "-");
       this.Servicio.telefono2 = this.validar(this.Servicio.telefono2, "-");
-      this.Servicio.obsCliente = this.validar(this.Servicio.obsCliente, "-");
+      this.Servicio.obsCliente = this.validar(this.Servicio.obsCliente, "-")
 
       this.Servicio.categoria = this.validar(this.selectedCat, "-");
       this.Servicio.marca = this.validar(this.Servicio.marca, "-");
@@ -507,7 +506,7 @@ export default {
 
       this.Servicio.pagos = [];
       if (this.Seña.pago != "") {
-        this.Seña.fecha = moment().format("YYYY-MM-DD HH:mm:ss");
+        this.Seña.fecha = new Date();
         this.Servicio.pagos = this.Seña;
       }
 
@@ -522,8 +521,8 @@ export default {
       this.Servicio.estado = "Sin revisar";
       this.Servicio.obsTecnico = this.validar(this.Servicio.obsTecnico, "-");
 
-      this.Servicio.fechaIn = moment().format("YYYY-MM-DD HH:mm:ss");
-      this.Servicio.fechaOut = "-";
+      this.Servicio.fechaIn = new Date();
+      this.Servicio.fechaOut = new Date();
 
       axios.post(this.api + "/api/servicio", this.Servicio).then((res) => {
         if (res.status == 200) {
@@ -537,18 +536,30 @@ export default {
           this.Movement.movimiento = this.Servicio.estado;
           this.Movement.motivo = this.Servicio.producto;
 
-          this.seña -= 1;
-          this.seña += 1;
-          if (this.seña > 0) {
-            axios.get(this.api + "/api/caja/" + this.idBox).then((res) => {
+          } */
+          this.Seña.pago -= 1;
+          this.Seña.pago += 1;
+          if (this.Seña.pago > 0) {
+            axios.get(this.api + "/api/caja/open").then((res) => {
               this.Box = res.data;
-              this.Box.efectivoS += this.seña;
+              switch (this.Seña.metodo) {
+                case 'Debito':
+                  this.Box.debitoS += this.Seña.pago
+                  break;
+                case 'Credito':
+                  this.Box.creditoS += this.Seña.pago
+                  break;
+                case 'Efectivo':
+                  this.Box.efectivoS += this.Seña.pago
+                  break;
+              }
+              console.log('Recibimos box y sumamos la seña: ', this.Box)
               axios.put(this.api + "/api/caja", this.Box).then((res) => {
                 console.log(res.status);
                 console.log("Un exito");
               });
             });
-          } */
+          }
         } else {
           this.makeToastError;
         }

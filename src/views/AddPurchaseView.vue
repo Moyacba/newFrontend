@@ -110,7 +110,10 @@ export default {
   },
 
   methods: {
+    
+
     addPurchase: function () {
+      this.Compra.fecha = new Date()
       this.Compra.categoria = this.seleccion;
 
       axios.post(this.api + "/api/compra", this.Compra).then((res) => {
@@ -128,7 +131,7 @@ export default {
 
           if (this.seleccionCaja == "Caja") {
             console.log("----------------------");
-            axios.get(this.api + "/api/caja/" + this.idBox).then((res) => {
+            axios.get(this.api + "/api/caja/open").then((res) => {
               console.log("----------------------");
               this.Box = res.data;
               this.Compra.precio -= 1;

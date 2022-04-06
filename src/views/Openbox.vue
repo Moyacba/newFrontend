@@ -79,7 +79,8 @@ export default {
             }
         },
 
-        abrirCaja: function(){
+        abrirCaja: async function(){
+            this.Box.fechaIn = new Date()
             this.Box.inicio = this.validar(this.Box.inicio, '0')
             this.Box.turno = this.validar(this.seleccionTurno, '-')
             this.Box.efectivoV = 0
@@ -90,9 +91,10 @@ export default {
             this.Box.creditoS = 0
             this.Box.gastos = 0
             this.Box.active = true
-            axios.post(this.api + '/api/caja', this.Box)
+            await axios.post(this.api + '/api/caja', this.Box)
                 .then(res => {
                     if (res.status == 200) {
+                        console.log(res.data)
                         this.makeToast()
                         this.changeOpenOrClose('/Closebox')
                         this.changebox('Caja: Abierta')

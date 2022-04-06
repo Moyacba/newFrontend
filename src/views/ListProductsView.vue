@@ -44,6 +44,11 @@
             striped
             sort-icon-left
           >
+            <template v-slot:cell(fecha)="row">
+              <div>
+                {{ fechaProducto(row.item) }}
+              </div>
+            </template>
             <template v-slot:cell(Acciones)="row">
               <div class="actionsBut">
                 <b-button
@@ -88,10 +93,7 @@
       hide-footer
       size="xl"
     >
-      <ProductView 
-        :Producto="productEdit"
-        >
-      </ProductView>
+      <ProductView :Producto="productEdit"> </ProductView>
     </b-modal>
   </b-container>
 </template>
@@ -110,6 +112,7 @@ export default {
   data() {
     return {
       fields: [
+        { key: "fecha", label: "Fecha", sortable: true, class: "text-center" },
         { key: "codigo", label: "Código", sortable: true },
         /* { key: "createdAt", label: "Fecha", sortable: true }, */
         { key: "categoria", sortable: true },
@@ -159,6 +162,12 @@ export default {
   },
 
   methods: {
+    fechaProducto(item){
+      if(item.fecha){
+        let dateProducto = new Date(item.fecha).toLocaleString().split(',', 1)[0]
+        return dateProducto
+      }
+    },
     ...mapActions(["addToCart"]),
 
     editShow: function (item) {

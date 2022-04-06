@@ -133,7 +133,7 @@ export default {
 
   methods: {
     mostrar2: function () {
-
+      this.Producto.fecha = new Date()
       this.Producto.codigo = this.validar(this.Producto.codigo, "-");
       this.Producto.producto = this.validar(this.Producto.producto, "-");
       this.Producto.categoria = this.validar(this.Producto.categoria, "-");

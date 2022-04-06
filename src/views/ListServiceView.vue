@@ -54,6 +54,11 @@
             striped
             sort-icon-left
           >
+            <template v-slot:cell(fechaIn)="row">
+              <div>
+                {{fechaServicio(row.item)}}
+              </div>
+            </template>
             <template v-slot:cell(acciones)="row">
               <b-button
                 id="btnEstado"
@@ -106,9 +111,10 @@ export default {
   data() {
     return {
       fields: [
+        { key: "fechaIn", label: 'Fecha', sortable: true, class: "text-center" },
         { key: "cliente", sortable: true },
-        { key: "presupuesto", label: "Monto", sortable: true },
-        { key: "producto", sortable: true },
+        { key: "total", label: "Monto", sortable: true },
+        { key: "marca", label: 'Producto', sortable: true },
         { key: "motivo", sortable: true },
         { key: "acciones", class: "text-center" },
       ],
@@ -120,7 +126,7 @@ export default {
       entregarShow: false,
       perPage: 10,
       currentPage: 1,
-      sortBy: "idServicio",
+      sortBy: "fechaIn",
       sortDesc: true,
 
       conection: true,
@@ -169,6 +175,13 @@ export default {
   },
 
   methods: {
+    fechaServicio(item){
+      if(item.fechaIn){
+        let dateServicio = new Date(item.fechaIn).toLocaleString().split(',', 1)[0]
+        return dateServicio
+      }
+    },
+
     color(item) {
       let color = "";
       switch (item) {

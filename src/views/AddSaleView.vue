@@ -173,6 +173,7 @@ export default {
             for (const item of this.cart) {
                 finalCart.push(item)
             }
+            this.Venta.fecha = new Date()
             this.Venta.productos = ''
             this.Venta.cliente = this.validarVacio(this.Venta.cliente, 'Cliente');
             this.Venta.detalles = this.validarVacio(this.Venta.detalles, '-');
