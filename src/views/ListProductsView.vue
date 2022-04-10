@@ -67,6 +67,12 @@
                 >
                   Agregar
                 </b-button>
+                <b-button
+                  v-b-modal="'actualizarProducto'"
+                  @click="antesActProducto(row.item)"
+                >
+                  UwU
+                </b-button>
               </div>
             </template>
           </b-table>
@@ -95,6 +101,22 @@
     >
       <ProductView :Producto="productEdit"> </ProductView>
     </b-modal>
+    <b-modal
+      id="actualizarProducto"
+      centered
+      size="md"
+      hide-footer
+      title="Agregar codigo nuevo"
+    >
+      <b-form-input autofocus v-model="codigonuevo"></b-form-input>
+      <b-button
+        class="mt-4"
+        variant="success"
+        @click="actProducto(), $bvModal.hide('actualizarProducto')"
+      >
+        OK
+      </b-button>
+    </b-modal>
   </b-container>
 </template>
 
@@ -112,18 +134,30 @@ export default {
   data() {
     return {
       fields: [
-        { key: "fecha", label: "Fecha", sortable: true, class: "text-center" },
+        // { key: "codigo", label: "Código", sortable: true },
+        // { key: "articulo[0].categoria", label:"Categoría", sortable: true },
+        // { key: "articulo[0].producto", label:"Producto", sortable: true },
+        // {
+        //   key: "articulo[0].precioVenta",
+        //   label: "Precio",
+        //   sortable: true,
+        //   class: "text-center",
+        // },
+        // { key: "articulo[0].stock", label:"Stock", sortable: true, class: "text-center" },
+        // { key: "Acciones", class: "text-center" },
+
+        ////////////////////////////////////////////////////////////////////////
+
         { key: "codigo", label: "Código", sortable: true },
-        /* { key: "createdAt", label: "Fecha", sortable: true }, */
-        { key: "categoria", sortable: true },
-        { key: "producto", sortable: true },
+        { key: "categoria", label:"Categoría", sortable: true },
+        { key: "producto", label:"Producto", sortable: true },
         {
           key: "precioVenta",
           label: "Precio",
           sortable: true,
           class: "text-center",
         },
-        { key: "stock", sortable: true, class: "text-center" },
+        { key: "stock", label:"Stock", sortable: true, class: "text-center" },
         { key: "Acciones", class: "text-center" },
       ],
       onLoader: true,
@@ -138,6 +172,8 @@ export default {
       productEdit: {},
       totalGastado: 0,
       estado: true,
+      productonuevo: {},
+      codigonuevo: "",
     };
   },
   computed: {
@@ -162,10 +198,38 @@ export default {
   },
 
   methods: {
-    fechaProducto(item){
-      if(item.fecha){
-        let dateProducto = new Date(item.fecha).toLocaleString().split(',', 1)[0]
-        return dateProducto
+    antesActProducto(prod) {
+      this.productonuevo = prod;
+      console.log(this.productonuevo);
+    },
+
+    async actProducto() {
+      delete this.productonuevo.codigo;
+      this.productonuevo.fecha = new Date();
+      let obj = {
+        codigo: this.codigonuevo,
+        articulo: this.productonuevo,
+      };
+
+      await axios.post(this.api + "/api/producto/", obj).then((res) => {
+        console.log(res.status);
+        // if (res.status == 200) {
+        //   this.makeToast();
+        //   /* this.registrarMovimiento(this.Producto); */
+        // } else {
+        //   this.makeToastError();
+        // }
+      });
+
+      this.codigonuevo = ''
+    },
+
+    fechaProducto(item) {
+      if (item.fecha) {
+        let dateProducto = new Date(item.fecha)
+          .toLocaleString()
+          .split(",", 1)[0];
+        return dateProducto;
       }
     },
     ...mapActions(["addToCart"]),
@@ -215,10 +279,11 @@ export default {
         }
       } else {
         for (let i = 0; i < tabla.length; i++) {
-          console.log(valor)
-          var name = tabla[i].producto;
-          if (name.toLowerCase().includes(valor.toLowerCase())) {
-            Coincidencias.push(tabla[i]);
+          if (tabla[i].articulo == undefined) {
+            var name = tabla[i].producto;
+            if (name.toLowerCase().includes(valor.toLowerCase())) {
+              Coincidencias.push(tabla[i]);
+            }
           }
         }
       }

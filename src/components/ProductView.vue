@@ -5,7 +5,7 @@
       <b-col cols="10">
         <b-card>
           <div>
-            {{fechaProducto}}
+            {{ fechaProducto }}
           </div>
           <b-row>
             <b-col cols="6">
@@ -85,16 +85,50 @@
                 >
                 </b-form-textarea>
               </div>
+
+              <div class="content"></div>
             </b-col>
-            <b-col cols="6">
-              <b-card class="mt-2" header="Imagen del prodcuto:">
-                <b-row>
-                  <b-col cols="1"></b-col>
-                  <b-col cols="10">
+            <b-col cols="6" class="mt-2">
+              <b-row>
+                <b-col cols="2" class="mr-4">
+                  <div class="texto mt-4"><p>Imagen:</p></div>
+                </b-col>
+                <b-col cols="9">
+                  <b-card>
+                    <div v-if="!Producto.img">Sin Foto</div>
                     <img :src="Producto.img" :alt="Producto.img" />
-                  </b-col>
-                </b-row>
-              </b-card>
+                  </b-card>
+                </b-col>
+              </b-row>
+
+              <b-row class="mt-2">
+                <b-col cols="12">
+                  <div class="content">
+                    <div class="texto"><p class="mt-2">Cod. Alt.:</p></div>
+                    <b-form-input
+                      type="text"
+                      v-model="Producto.codAlt"
+                      placeholder="Codigo Alternativo"
+                    >
+                    </b-form-input>
+                  </div>
+                </b-col>
+              </b-row>
+
+              <b-row class="">
+                <b-col cols="12">
+                  <div class="content">
+                    <div class="texto"><p class="">Ult. Camb.:</p></div>
+                    <b-form-input
+                      disabled
+                      type="text"
+                      v-model="ultimaFecha"
+                      placeholder="Codigo Alternativo"
+                    >
+                    </b-form-input>
+                  </div>
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
 
@@ -108,10 +142,7 @@
 
           <b-row>
             <b-col cols="12">
-              <ImageUpload 
-                :producto_id="Producto._id"
-                v-on:imgView="imgfunc"
-              >
+              <ImageUpload :producto_id="Producto._id" v-on:imgView="imgfunc">
               </ImageUpload>
             </b-col>
           </b-row>
@@ -177,12 +208,16 @@ export default {
       imgProduct: "Hola",
       dismissSecs: 3,
       dismissCountDown: 0,
-      ProductPut: {},
+      ProductPut: { _id: this.Producto._id, fechaPrecioVenta: new Date()},
       show: false,
       passwordView: false,
       Movement: {},
       passrefresh: "",
-      fechaProducto: '',
+      fechaProducto: "",
+      pVenta: "",
+      ultimaFecha: new Date(this.Producto.fechaPrecioVenta)
+        .toLocaleString()
+        .split(",")[0],
     };
   },
   computed: {
@@ -192,22 +227,30 @@ export default {
   },
 
   created() {
-    if (this.Producto.fecha){
-      let fecha = this.Producto.fecha
-      this.fechaProducto = new Date(fecha).toLocaleString().split(',', 1)[0]
+    this.pVenta = this.Producto.precioVenta;
+
+    console.log(this.Producto.fechaPrecioVenta)
+
+    if(!this.Producto.fechaPrecioVenta){
+      this.ProductPut.fechaPrecioVenta = new Date()
+    }
+
+    if (this.Producto.fecha) {
+      let fecha = this.Producto.fecha;
+      this.fechaProducto = new Date(fecha).toLocaleString().split(",", 1)[0];
     }
   },
 
   methods: {
-    imgfunc: function(a){
-      this.Producto.img = a
+    imgfunc: function (a) {
+      this.Producto.img = a;
     },
 
     actualizarProducto() {
       axios.get(this.api + "/api/producto/" + this.Producto._id).then((res) => {
         if (res.status == 200) {
           this.Producto.img = res.data.img;
-          console.log('Este producto: ',this.Producto);
+          console.log("Este producto: ", this.Producto);
         }
       });
     },
@@ -221,7 +264,7 @@ export default {
       // console.log(fd)
       await axios.post(this.api + "/img/", Data).then((res) => {
         if (res.status == 200) {
-          this.actualizarProducto()
+          this.actualizarProducto();
           console.log("Imagen actualizada con exito");
         }
       });
@@ -244,7 +287,9 @@ export default {
     },
 
     mostrar3: function () {
-      this.ProductPut._id = this.validar(this.Producto._id, "-");
+      console.log("OK");
+
+      // this.ProductoPut._id = this.Producto._id
       this.ProductPut.producto = this.validar(this.Producto.producto, "-");
       this.ProductPut.codigo = this.Producto.codigo;
       this.ProductPut.categoria = this.validar(this.Producto.categoria, "-");
@@ -260,7 +305,21 @@ export default {
       this.ProductPut.proveedor = this.validar(this.Producto.proveedor, "-");
       this.ProductPut.detalles = this.validar(this.Producto.detalles, "-");
 
+      if (this.Producto.precioVenta != this.pVenta) {
+        this.ProductPut.fechaPrecioVenta = new Date()
+      }
+
+      this.ProductPut.codAlt = this.Producto.codAlt;
+      this.ProductPut.atributos = this.Producto.atributos;
       /* this.registrarMovimiento(this.ProductPut) */
+
+      // if (!this.pVenta) {
+      //   this.ProductPut.fechaVenta = new Date();
+      // } else if (this.Producto.fechaVenta) {
+      //   if (this.pVenta != this.Producto.precioVenta) {
+      //     this.ProductoPut.fechaVenta = new Date();
+      //   }
+      // }
 
       axios.put(this.api + "/api/producto", this.ProductPut).then((res) => {
         if (res.status == 200) {

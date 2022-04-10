@@ -155,10 +155,7 @@
                         </b-button>
                       </b-row>
                       <b-row>
-                        <b-button
-                          variant="info"
-                          v-b-modal="'cambiarEstado'"
-                        >
+                        <b-button variant="info" v-b-modal="'cambiarEstado'">
                           Cambiar estado
                         </b-button>
                       </b-row>
@@ -474,7 +471,7 @@
             variant="success"
             >Entregar</b-button
           >
-          
+
           <b-modal
             v-model="cambiarEstado"
             title="Cambiar estado"
@@ -1013,7 +1010,7 @@ export default {
       );
     },
 
-    entregar() {
+    async entregar() {
       let ultPago = {};
       ultPago.pago = this.paga;
       ultPago.metodo = this.selectedPago;
@@ -1022,19 +1019,30 @@ export default {
       this.Servicio.pagos.push(ultPago);
       this.Servicio.estado = "Entregado";
 
-      axios.get(this.api + "/api/caja/open").then((res) => {
+      await axios.get(this.api + "/api/caja/open").then((res) => {
         console.log("----------VENTA------------");
         console.log(res.data);
         this.Box = res.data;
         this.Servicio.total += 1;
         this.Servicio.total -= 1;
-        if (this.Servicio.pago == "Efectivo") {
-          this.Box.efectivoS += this.Servicio.total;
-        } else if (this.Venta.pago == "Débito") {
-          this.Box.debitoS += this.Servicio.total;
-        } else if (this.Venta.pago == "Crédito") {
-          this.Box.creditoS += this.Servicio.total;
+        switch (ultPago.metodo) {
+          case "Efectivo":
+            this.Box.efectivoS += this.Servicio.total;
+            break;
+          case "Débito":
+            this.Box.debitoS += this.Servicio.total;
+            break;
+          case "crédito":
+            this.Box.creditoS += this.Servicio.total;
+            break;
         }
+        // if (this.Servicio.pago == "Efectivo") {
+        //   this.Box.efectivoS += this.Servicio.total;
+        // } else if (this.Venta.pago == "Débito") {
+        //   this.Box.debitoS += this.Servicio.total;
+        // } else if (this.Venta.pago == "Crédito") {
+        //   this.Box.creditoS += this.Servicio.total;
+        // }
         axios.put(this.api + "/api/caja", this.Box).then((res) => {
           console.log("Servicio actualizado con exito");
           console.log(res.status);
@@ -1042,7 +1050,7 @@ export default {
         });
       });
 
-      axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
+      await axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
         if (res.status == 200) {
           this.makeToastPago();
         } else {

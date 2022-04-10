@@ -133,8 +133,9 @@ export default {
 
   methods: {
     mostrar2: function () {
-      this.Producto.fecha = new Date()
-      this.Producto.codigo = this.validar(this.Producto.codigo, "-");
+      let fecha = new Date()
+      this.Producto.codigo = this.validar(this.Producto.codigo, "0");
+      this.Producto.fecha = fecha;
       this.Producto.producto = this.validar(this.Producto.producto, "-");
       this.Producto.categoria = this.validar(this.Producto.categoria, "-");
       this.Producto.stock = this.validar(this.Producto.stock, "0");
@@ -143,18 +144,42 @@ export default {
         "0"
       );
       this.Producto.precioVenta = this.validar(this.Producto.precioVenta, "0");
+      this.Producto.fechaPrecioVenta = fecha;
       this.Producto.proveedor = this.validar(this.Producto.proveedor, "-");
       this.Producto.detalles = this.validar(this.Producto.detalles, "-");
-      this.Producto.img = '',
+      this.Producto.img = "";
+      this.Producto.codAlt = '',
+      this.Producto.atributos = [],
 
+      // axios
+      //   .post(this.api + "/api/producto/id/" + this.ProductoFinal.codigo,
+      //     this.ProductoFinal
+      //   )
+      //   .then((res) => {
+      //     if (res.data) {
+      //       console.log("Push producto");
+      //       let varProducto = res.data;
+      //       // varProducto.producto.push(this.Producto)
+      //       console.log(varProducto);
+      //       // console.log(this.Producto)
+      //     } else {
+      //       console.log("Crear nuevo producto");
+      //     }
+      //   });
       axios.post(this.api + "/api/producto", this.Producto).then((res) => {
         if (res.status == 200) {
+          console.log(res.data)
           this.makeToast();
           /* this.registrarMovimiento(this.Producto); */
         } else {
           this.makeToastError();
         }
       });
+      this.resetProductoFinal();
+    },
+
+    resetProductoFinal() {
+      this.ProductoFinal = { codigo: "", producto: [] };
       this.Producto = {};
     },
 

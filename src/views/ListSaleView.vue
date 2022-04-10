@@ -38,10 +38,17 @@
           >
             <template v-slot:cell(fecha)="row">
               <div>
-                {{fechaVenta(row.item)}}
+                {{ fechaVenta(row.item) }}
               </div>
             </template>
-            <template v-slot:cell(productos)> 1 </template>
+
+            <template v-slot:cell(productos)="row">
+              <div>
+                {{mostrarProductos(row.item)}}
+                <!-- <b-button @click="mostrarProductos(row.item)"> </b-button> -->
+              </div>
+            </template>
+
             <template v-slot:cell(Agregar)="row">
               <b-button
                 variant="info"
@@ -102,7 +109,7 @@ export default {
         { key: "cliente", sortable: true },
         { key: "pago", sortable: true },
         { key: "total", label: "Monto", sortable: true },
-        { key: "productos" },
+        { key: "productos", sortable: true },
         { key: "Agregar", class: "text-center" },
       ],
       onLoader: true,
@@ -140,10 +147,22 @@ export default {
     });
   },
   methods: {
-    fechaVenta(item){
-      if(item.fecha){
-        let dateVenta = new Date(item.fecha).toLocaleString().split(',', 1)[0]
-        return dateVenta
+    mostrarProductos(item) {
+      let prod = ''
+      item.productos.forEach(element => {
+        if(prod != ''){
+            prod += ' + '
+          }
+          prod += element.producto
+      });
+
+      return prod
+    },
+
+    fechaVenta(item) {
+      if (item.fecha) {
+        let dateVenta = new Date(item.fecha).toLocaleString().split(",", 1)[0];
+        return dateVenta;
       }
     },
 
@@ -193,10 +212,6 @@ export default {
     },
     ////////////BUSQUEDA EN TABLA///////////////
     ////////////////////////////////////////////
-  },
-
-  montarProducto: function () {
-    return "hola";
   },
 };
 </script>

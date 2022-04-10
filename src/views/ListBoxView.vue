@@ -34,6 +34,12 @@
           striped
           sort-icon-left
         >
+          <template v-slot:cell(fechaIn)="row">
+            <div>
+              {{ fechaCaja(row.item) }}
+            </div>
+          </template>
+
           <template v-slot:cell(Acción)="row">
             <b-button
               variant="info"
@@ -84,16 +90,16 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import BoxView from "../components/BoxView.vue";
-import Loader from '../components/Loader.vue'
+import Loader from "../components/Loader.vue";
 
 export default {
   name: "ListBoxView",
-  components: { BoxView , Loader},
+  components: { BoxView, Loader },
   data() {
     return {
       fields: [
+        { key: "fechaIn", label: "Fecha", sortable: true },
         { key: "turno", sortable: true },
-        { key: "active", sortable: true },
         { key: "inicio", sortable: true },
         { key: "efectivoV", label: "EfectivoV", sortable: true },
         { key: "debitoV", label: "DebitoV", sortable: true },
@@ -115,7 +121,7 @@ export default {
       productsSale: [],
       subtotalSale: 0,
       dateSale: "",
-      sortBy: "idBox",
+      sortBy: "fechaIn",
       sortDesc: true,
 
       inicio: 0,
@@ -145,10 +151,17 @@ export default {
     axios.get(this.api + "/api/caja").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
-      this.onLoader = false
+      this.onLoader = false;
     });
   },
   methods: {
+    fechaCaja(item) {
+      if (item.fechaIn) {
+        let final = new Date(item.fechaIn).toLocaleString().split(",", 1)[0];
+        return final;
+      }
+    },
+
     ///////////////////////////////////////////
     ////////////AGREGAR VENTA//////////////////
 
@@ -217,8 +230,8 @@ export default {
   display: flex;
   align-self: center;
 }
-.padre{
-    display: flex;
-    justify-content: center;
+.padre {
+  display: flex;
+  justify-content: center;
 }
 </style>

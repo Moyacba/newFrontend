@@ -356,7 +356,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "ServiceView",
+  name: "ServiceView2",
   props: [
     'Servicio'
     // "idServicio",
