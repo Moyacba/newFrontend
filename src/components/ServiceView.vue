@@ -181,7 +181,7 @@
                         <b-col cols="12">
                           <b-row
                             class="mt-4 ml-4"
-                            v-if="Servicio.contrasenia.length > 1"
+                            v-if="Servicio.contrasenia > 1"
                           >
                             <Patron
                               :PatronActual="Servicio.contrasenia"
@@ -189,7 +189,7 @@
                           </b-row>
                           <b-row
                             class="mb-2"
-                            v-if="Servicio.contrasenia.length < 2"
+                            v-if="Servicio.contrasenia < 2"
                           >
                             <b-input-group prepend="Contrasenia">
                               <b-form-input
@@ -199,7 +199,7 @@
                               </b-form-input>
                             </b-input-group>
                           </b-row>
-                          <b-row v-if="Servicio.contrasenia.length < 2">
+                          <b-row v-if="Servicio.contrasenia < 2">
                             <b-input-group prepend="Observación :">
                               <b-form-textarea
                                 :disabled="editServicio"
@@ -232,7 +232,7 @@
                         <b-col cols="12">
                           <b-row
                             class="mt-4 ml-4"
-                            v-if="Servicio.contrasenia.length > 1"
+                            v-if="Servicio.contrasenia > 1"
                           >
                             <Patron
                               :PatronActual="Servicio.contrasenia"
@@ -240,7 +240,7 @@
                           </b-row>
                           <b-row
                             class="mb-2"
-                            v-if="Servicio.contrasenia.length < 2"
+                            v-if="Servicio.contrasenia < 2"
                           >
                             <b-input-group prepend="Contrasenia">
                               <b-form-input
@@ -250,7 +250,7 @@
                               </b-form-input>
                             </b-input-group>
                           </b-row>
-                          <b-row v-if="Servicio.contrasenia.length < 2">
+                          <b-row v-if="Servicio.contrasenia < 2">
                             <b-input-group prepend="Observación :">
                               <b-form-textarea
                                 :disabled="editServicio"
@@ -283,7 +283,7 @@
                         <b-col cols="12">
                           <b-row
                             class="mt-2 ml-4"
-                            v-if="Servicio.contrasenia.length > 1"
+                            v-if="Servicio.contrasenia > 1"
                           >
                             <Patron
                               :PatronActual="Servicio.contrasenia"
@@ -291,7 +291,7 @@
                           </b-row>
                           <b-row
                             class="mb-2"
-                            v-if="Servicio.contrasenia.length < 2"
+                            v-if="Servicio.contrasenia < 2"
                           >
                             <b-input-group prepend="Contrasenia">
                               <b-form-input
@@ -301,7 +301,7 @@
                               </b-form-input>
                             </b-input-group>
                           </b-row>
-                          <b-row v-if="Servicio.contrasenia.length < 2">
+                          <b-row v-if="Servicio.contrasenia < 2">
                             <b-input-group prepend="Observación :">
                               <b-form-textarea
                                 :disabled="editServicio"
@@ -334,7 +334,7 @@
                         <b-col cols="12">
                           <b-row
                             class="mt-2 ml-4"
-                            v-if="Servicio.contrasenia.length > 1"
+                            v-if="Servicio.contrasenia > 1"
                           >
                             <Patron
                               :PatronActual="Servicio.contrasenia"
@@ -342,7 +342,7 @@
                           </b-row>
                           <b-row
                             class="mb-2"
-                            v-if="Servicio.contrasenia.length < 2"
+                            v-if="Servicio.contrasenia < 2"
                           >
                             <b-input-group prepend="Contrasenia">
                               <b-form-input
@@ -352,7 +352,7 @@
                               </b-form-input>
                             </b-input-group>
                           </b-row>
-                          <b-row v-if="Servicio.contrasenia.length < 2">
+                          <b-row v-if="Servicio.contrasenia < 2">
                             <b-input-group prepend="Observación :">
                               <b-form-textarea
                                 :disabled="editServicio"
@@ -365,7 +365,7 @@
                       </div>
                     </b-col>
                   </b-row>
-                  <b-row v-if="!(Servicio.contrasenia.length < 2)">
+                  <b-row v-if="!(Servicio.contrasenia < 2)">
                     <b-input-group prepend="Observación :">
                       <b-form-textarea
                         :disabled="editServicio"
@@ -889,9 +889,11 @@ export default {
       this.Service.idService = id;
       this.Service.estado = estado;
       this.Service.pago = this.metodoPago;
-      axios.put(this.api + "/api/service", this.Service).then((res) => {
-        console.log(res.status);
-      });
+      axios
+        .put(this.api + "/" + this.$suc.value + "/api/service", this.Service)
+        .then((res) => {
+          console.log(res.status);
+        });
       this.registrarMovimiento(
         estado,
         this.producto,
@@ -899,26 +901,30 @@ export default {
         this.idServicio
       );
 
-      axios.get(this.api + "/api/box/" + this.idBox).then((res) => {
-        console.log("----------SERVICIO------------");
-        this.Box = res.data;
-        let total = this.Dinero.pagaCon;
-        total -= 1;
-        total += 1;
-        if (this.Service.pago == "Efectivo") {
-          this.Box.efectivoS += total;
-        } else if (this.Service.pago == "Débito") {
-          this.Box.debitoS += total;
-        } else if (this.Service.pago == "Crédito") {
-          this.Box.creditoS += total;
-        }
-        console.log(this.Box);
-        axios.put(this.api + "/api/box", this.Box).then((res) => {
-          console.log("Caja actualizada con exito");
-          console.log(res.status);
-          console.log("==================");
+      axios
+        .get(this.api + "/" + this.$suc.value + "/api/box/" + this.idBox)
+        .then((res) => {
+          console.log("----------SERVICIO------------");
+          this.Box = res.data;
+          let total = this.Dinero.pagaCon;
+          total -= 1;
+          total += 1;
+          if (this.Service.pago == "Efectivo") {
+            this.Box.efectivoS += total;
+          } else if (this.Service.pago == "Débito") {
+            this.Box.debitoS += total;
+          } else if (this.Service.pago == "Crédito") {
+            this.Box.creditoS += total;
+          }
+          console.log(this.Box);
+          axios
+            .put(this.api + "/" + this.$suc.value + "/api/box", this.Box)
+            .then((res) => {
+              console.log("Caja actualizada con exito");
+              console.log(res.status);
+              console.log("==================");
+            });
         });
-      });
     },
 
     registrarMovimiento(seleccion, producto, cliente, idServicio) {
@@ -930,9 +936,11 @@ export default {
 
       console.log(this.Movement);
 
-      axios.post(this.api + "/api/movement", this.Movement).then((res) => {
-        console.log(res.data);
-      });
+      axios
+        .post(this.api + "/" + this.$suc.value + "/api/movement", this.Movement)
+        .then((res) => {
+          console.log(res.data);
+        });
     },
 
     igualarTotal: function (subtotal) {
@@ -956,13 +964,18 @@ export default {
 
     edicion: function () {
       if (this.passEdicion == "2244") {
-        axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
-          if (res.status == 200) {
-            this.makeToastPago();
-          } else {
-            this.makeToastnt();
-          }
-        });
+        axios
+          .put(
+            this.api + "/" + this.$suc.value + "/api/servicio",
+            this.Servicio
+          )
+          .then((res) => {
+            if (res.status == 200) {
+              this.makeToastPago();
+            } else {
+              this.makeToastnt();
+            }
+          });
       }
     },
 
@@ -986,22 +999,55 @@ export default {
       ServicioFinal.pagos = pagosLet;
 
       console.log("antes");
-      axios.put(this.api + "/api/servicio/", ServicioFinal).then((res) => {
-        if (res.status == 200) {
-          this.makeToastPago();
-          this.modalPagos = !this.modalPagos;
-          this.Seña = { fecha: "", pago: "", metodo: "" };
-        }
-      });
+      axios
+        .put(this.api + "/" + this.$suc.value + "/api/servicio/", ServicioFinal)
+        .then((res) => {
+          if (res.status == 200) {
+            axios
+              .get(this.api + "/" + this.$suc.value + "/api/caja/open")
+              .then((res) => {
+                console.log('Caja: ',this.Box)
+                this.Box = res.data;
+                this.Seña.pago -= 1
+                this.Seña.pago += 1
+                console.log('Seña pago: ', this.Seña.pago)
+                console.log('Seña metodo: ', this.Seña.metodo)
+                console.log('Caja: ', this.Box.debitoS)
+                switch (this.Seña.metodo) {
+                  case "Efectivo":
+                    this.Box.efectivoS += this.Seña.pago;
+                    break;
+                  case "Debito":
+                    this.Box.debitoS += this.Seña.pago;
+                    break;
+                  case "Credito":
+                    this.Box.creditoS += this.Seña.pago;
+                    break;
+                }
+                console.log('Caja actualizada: ', this.Box)
+                axios
+                  .put(this.api + "/" + this.$suc.value + "/api/caja", this.Box)
+                  .then((res) => {
+                    if (res.status == 200) {
+                      this.makeToastPago();
+                      this.modalPagos = !this.modalPagos;
+                      this.Seña = { fecha: "", pago: "", metodo: "" };
+                    }
+                  });
+              });
+          }
+        });
     },
 
     cambiarPresupuesto(id, presupuesto) {
       (this.ServicePre.idService = id),
         (this.ServicePre.presupuesto = parseInt(presupuesto)),
         console.log(this.ServicePre);
-      axios.put(this.api + "/api/service", this.ServicePre).then((res) => {
-        console.log(res.status);
-      });
+      axios
+        .put(this.api + "/" + this.$suc.value + "/api/service", this.ServicePre)
+        .then((res) => {
+          console.log(res.status);
+        });
       this.registrarMovimiento(
         presupuesto,
         this.producto,
@@ -1019,44 +1065,50 @@ export default {
       this.Servicio.pagos.push(ultPago);
       this.Servicio.estado = "Entregado";
 
-      await axios.get(this.api + "/api/caja/open").then((res) => {
-        console.log("----------VENTA------------");
-        console.log(res.data);
-        this.Box = res.data;
-        this.Servicio.total += 1;
-        this.Servicio.total -= 1;
-        switch (ultPago.metodo) {
-          case "Efectivo":
-            this.Box.efectivoS += this.Servicio.total;
-            break;
-          case "Débito":
-            this.Box.debitoS += this.Servicio.total;
-            break;
-          case "crédito":
-            this.Box.creditoS += this.Servicio.total;
-            break;
-        }
-        // if (this.Servicio.pago == "Efectivo") {
-        //   this.Box.efectivoS += this.Servicio.total;
-        // } else if (this.Venta.pago == "Débito") {
-        //   this.Box.debitoS += this.Servicio.total;
-        // } else if (this.Venta.pago == "Crédito") {
-        //   this.Box.creditoS += this.Servicio.total;
-        // }
-        axios.put(this.api + "/api/caja", this.Box).then((res) => {
-          console.log("Servicio actualizado con exito");
-          console.log(res.status);
-          console.log("==================");
+      await axios
+        .get(this.api + "/" + this.$suc.value + "/api/caja/open")
+        .then((res) => {
+          console.log("----------VENTA------------");
+          console.log(res.data);
+          this.Box = res.data;
+          this.Servicio.total += 1;
+          this.Servicio.total -= 1;
+          switch (ultPago.metodo) {
+            case "Efectivo":
+              this.Box.efectivoS += this.Servicio.total;
+              break;
+            case "Débito":
+              this.Box.debitoS += this.Servicio.total;
+              break;
+            case "crédito":
+              this.Box.creditoS += this.Servicio.total;
+              break;
+          }
+          // if (this.Servicio.pago == "Efectivo") {
+          //   this.Box.efectivoS += this.Servicio.total;
+          // } else if (this.Venta.pago == "Débito") {
+          //   this.Box.debitoS += this.Servicio.total;
+          // } else if (this.Venta.pago == "Crédito") {
+          //   this.Box.creditoS += this.Servicio.total;
+          // }
+          axios
+            .put(this.api + "/" + this.$suc.value + "/api/caja", this.Box)
+            .then((res) => {
+              console.log("Servicio actualizado con exito");
+              console.log(res.status);
+              console.log("==================");
+            });
         });
-      });
 
-      await axios.put(this.api + "/api/servicio", this.Servicio).then((res) => {
-        if (res.status == 200) {
-          this.makeToastPago();
-        } else {
-          this.makeToastnt();
-        }
-      });
+      await axios
+        .put(this.api + "/" + this.$suc.value + "/api/servicio", this.Servicio)
+        .then((res) => {
+          if (res.status == 200) {
+            this.makeToastPago();
+          } else {
+            this.makeToastnt();
+          }
+        });
     },
 
     aprobarEntrega() {

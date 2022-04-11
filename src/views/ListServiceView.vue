@@ -167,7 +167,7 @@ export default {
 
   mounted() {
     this.$forceUpdate();
-    axios.get(this.api + "/api/servicio").then((res) => {
+    axios.get(this.api + '/' + this.$suc.value + "/api/servicio").then((res) => {
       this.items = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;
@@ -241,16 +241,23 @@ export default {
       }
       this.llenarTabla(dato);
     },
-    compararBusqueda: function (valor, items) {
+    compararBusqueda: function (valorUp, items) {
+      let valor = valorUp.toLowerCase()
       var Coincidencias = [];
 
       for (let i = 0; i < items.length; i++) {
-        var name = items[i].producto.toLowerCase();
+
+        console.log(items[i])
+
+        var name = items[i].marca.toLowerCase();
         var cliente = items[i].cliente.toLowerCase();
+        var motivo = items[i].motivo.toLowerCase();
 
         if (name.includes(valor)) {
           Coincidencias.push(items[i]);
         } else if (cliente.includes(valor)) {
+          Coincidencias.push(items[i]);
+        } else if (motivo.includes(valor)) {
           Coincidencias.push(items[i]);
         }
       }

@@ -3,10 +3,9 @@
     <b-navbar fixed="top" toggleable="sm" type="dark" variant="dark">
       <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
 
-      <div class="logotipo">
-        <img id="logoMT" src="../../public/LogoSolo.png" alt="">
-        <b-navbar-brand to="/" class="ml-2">MODOTECNO</b-navbar-brand>
-      </div>
+      <b-navbar-brand id="navbarLogo" to="/" class="ml-3 mr-0">
+        <img id="logoMT" src="../../public/Modotecno2.png" alt="" />
+      </b-navbar-brand>
 
       <b-collapse id="nav-text-collapse" is-nav>
         <b-navbar-nav>
@@ -160,15 +159,8 @@ export default {
 </script>
 
 <style>
-.logotipo{
-    display: flex;
-    justify-content: center;
-    margin-left: 20px;
-}
-#logoMT{
-    height: 40px;
-    width: 40px;
-
+#logoMT {
+  width: 1400px;
 }
 #containerCart {
   display: flex;

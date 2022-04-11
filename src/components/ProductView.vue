@@ -247,7 +247,7 @@ export default {
     },
 
     actualizarProducto() {
-      axios.get(this.api + "/api/producto/" + this.Producto._id).then((res) => {
+      axios.get(this.api + '/' + this.$suc.value + "/api/producto/" + this.Producto._id).then((res) => {
         if (res.status == 200) {
           this.Producto.img = res.data.img;
           console.log("Este producto: ", this.Producto);
@@ -262,7 +262,7 @@ export default {
       // fd.append('fieldname', qthis.imgProduct);
       // console.log(this.imgProduct)
       // console.log(fd)
-      await axios.post(this.api + "/img/", Data).then((res) => {
+      await axios.post(this.api + '/' + this.$suc.value + "/img/", Data).then((res) => {
         if (res.status == 200) {
           this.actualizarProducto();
           console.log("Imagen actualizada con exito");
@@ -321,7 +321,7 @@ export default {
       //   }
       // }
 
-      axios.put(this.api + "/api/producto", this.ProductPut).then((res) => {
+      axios.put(this.api + '/' + this.$suc.value + "/api/producto", this.ProductPut).then((res) => {
         if (res.status == 200) {
           this.show = !this.show;
         } else {
@@ -349,7 +349,7 @@ export default {
       this.Movement.movimiento = "Editar Producto";
       this.Movement.motivo = Producto.producto;
 
-      axios.post(this.api + "/api/movement", this.Movement).then((res) => {
+      axios.post(this.api + '/' + this.$suc.value + "/api/movement", this.Movement).then((res) => {
         console.log(res.data);
       });
     },

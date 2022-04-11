@@ -148,7 +148,7 @@ export default {
     },
   },
   mounted() {
-    axios.get(this.api + "/api/caja").then((res) => {
+    axios.get(this.api + '/' + this.$suc.value + "/api/caja").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;

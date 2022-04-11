@@ -14,6 +14,7 @@ import Openbox from '../views/Openbox'
 import Closebox from '../views/Closebox'
 import home from '../views/home'
 import ListBoxView from '../views/ListBoxView'
+import AddUserView from '../views/AddUserView'
 
 Vue.use(VueRouter)
 
@@ -77,6 +78,11 @@ const routes = [
   path: '/Closebox',
   name: 'Closebox',
   component: Closebox,
+  },
+  {
+  path: '/Adduser',
+  name: 'AddUserView',
+  component: AddUserView,
   }
 ]
 

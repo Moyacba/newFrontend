@@ -189,7 +189,7 @@ export default {
 
   mounted() {
     this.$forceUpdate();
-    axios.get(this.api + "/api/producto").then((res) => {
+    axios.get(this.api + '/' + this.$suc.value + "/api/producto").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;
@@ -211,7 +211,7 @@ export default {
         articulo: this.productonuevo,
       };
 
-      await axios.post(this.api + "/api/producto/", obj).then((res) => {
+      await axios.post(this.api + '/' + this.$suc.value + "/api/producto/", obj).then((res) => {
         console.log(res.status);
         // if (res.status == 200) {
         //   this.makeToast();
@@ -268,7 +268,8 @@ export default {
       this.llenarTabla(dato);
     },
 
-    compararBusqueda: function (valor, tabla, opcion) {
+    compararBusqueda: function (valorUp, tabla, opcion) {
+      let valor = valorUp.toLowerCase()
       var Coincidencias = [];
       if (opcion == "number") {
         for (let i = 0; i < tabla.length; i++) {
@@ -281,7 +282,7 @@ export default {
         for (let i = 0; i < tabla.length; i++) {
           if (tabla[i].articulo == undefined) {
             var name = tabla[i].producto;
-            if (name.toLowerCase().includes(valor.toLowerCase())) {
+            if (name.toLowerCase().includes(valor)) {
               Coincidencias.push(tabla[i]);
             }
           }

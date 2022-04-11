@@ -183,18 +183,18 @@ export default {
 
             /* this.registrarMovimiento(this.Venta); */
             console.log(this.Venta)
-            axios.post(this.api + '/api/venta', this.Venta)
+            axios.post(this.api + '/' + this.$suc.value + '/api/venta', this.Venta)
                 .then(res => {
                     if (res.status == 200) {
                         this.makeToast()
                         this.deleteCart()
                         for (const itemProduct of this.Venta.productos) {
-                            axios.put(this.api + '/api/producto', itemProduct)
+                            axios.put(this.api + '/' + this.$suc.value + '/api/producto', itemProduct)
                                 .then(res => {
                                     console.log(res.status)
                                 })
                         }
-                        axios.get(this.api + '/api/caja/open')
+                        axios.get(this.api + '/' + this.$suc.value + '/api/caja/open')
                                 .then(res => {
                                     console.log('----------VENTA------------')
                                     console.log(res.data)
@@ -210,7 +210,7 @@ export default {
                                     else if (this.Venta.pago == 'Crédito') {
                                         this.Box.creditoV += this.Venta.total
                                     }
-                                    axios.put(this.api + '/api/caja', this.Box)
+                                    axios.put(this.api + '/' + this.$suc.value + '/api/caja', this.Box)
                                         .then(res => {
                                             console.log('Caja actualizada con exito')
                                             console.log(res.status)
@@ -267,7 +267,7 @@ export default {
             this.Movement.movimiento = 'Agregar Venta'
             this.Movement.motivo = Sale.total
 
-            axios.post(this.api + '/api/movement', this.Movement)
+            axios.post(this.api + '/' + this.$suc.value + '/api/movement', this.Movement)
                 .then(res => {
                     console.log(res.data)
                 })

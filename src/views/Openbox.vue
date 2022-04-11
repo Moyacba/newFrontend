@@ -91,7 +91,7 @@ export default {
             this.Box.creditoS = 0
             this.Box.gastos = 0
             this.Box.active = true
-            await axios.post(this.api + '/api/caja', this.Box)
+            await axios.post(this.api + '/' + this.$suc.value + '/api/caja', this.Box)
                 .then(res => {
                     if (res.status == 200) {
                         console.log(res.data)

@@ -524,7 +524,7 @@ export default {
       this.Servicio.fechaIn = new Date();
       this.Servicio.fechaOut = new Date();
 
-      axios.post(this.api + "/api/servicio", this.Servicio).then((res) => {
+      axios.post(this.api + '/' + this.$suc.value + "/api/servicio", this.Servicio).then((res) => {
         if (res.status == 200) {
           this.makeToast();
           this.changePatron("");
@@ -540,7 +540,7 @@ export default {
           this.Seña.pago -= 1;
           this.Seña.pago += 1;
           if (this.Seña.pago > 0) {
-            axios.get(this.api + "/api/caja/open").then((res) => {
+            axios.get(this.api + '/' + this.$suc.value + "/api/caja/open").then((res) => {
               this.Box = res.data;
               switch (this.Seña.metodo) {
                 case 'Debito':
@@ -554,7 +554,7 @@ export default {
                   break;
               }
               console.log('Recibimos box y sumamos la seña: ', this.Box)
-              axios.put(this.api + "/api/caja", this.Box).then((res) => {
+              axios.put(this.api + '/' + this.$suc.value + "/api/caja", this.Box).then((res) => {
                 console.log(res.status);
                 console.log("Un exito");
               });

@@ -78,7 +78,7 @@ export default {
 
   mounted() {
     this.$forceUpdate();
-    axios.get(this.api + "/api/notas").then((res) => {
+    axios.get(this.api + '/' + this.$suc.value + "/api/notas").then((res) => {
       this.Notes = res.data;
       this.onLoader = false;
     });
@@ -105,7 +105,7 @@ export default {
     },
 
     agregarNota: function () {
-      axios.post(this.api + "/api/notas", this.Nota).then((res) => {
+      axios.post(this.api + '/' + this.$suc.value + "/api/notas", this.Nota).then((res) => {
         console.log(res.data);
         if (res.status == 200) {
           let prevNota = this.Nota;
@@ -118,7 +118,7 @@ export default {
 
     eliminarNota: function (row) {
       console.log(row);
-      axios.patch(this.api + "/api/notas", row).then((res) => {
+      axios.patch(this.api + '/' + this.$suc.value + "/api/notas", row).then((res) => {
         console.log(res.data);
         if (res.status == 200) {
           this.arraySumplente = [];
@@ -138,7 +138,7 @@ export default {
       this.Movement.movimiento = movi;
       this.Movement.motivo = motivo;
 
-      axios.post(this.api + "/api/movement", this.Movement);
+      axios.post(this.api + '/' + this.$suc.value + "/api/movement", this.Movement);
       // .then(res => {
       //     console.log(res.data)
       // })

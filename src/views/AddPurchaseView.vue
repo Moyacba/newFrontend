@@ -116,7 +116,7 @@ export default {
       this.Compra.fecha = new Date()
       this.Compra.categoria = this.seleccion;
 
-      axios.post(this.api + "/api/compra", this.Compra).then((res) => {
+      axios.post(this.api + '/' + this.$suc.value + "/api/compra", this.Compra).then((res) => {
         if (res.status == 200) {
           this.makeToast();
           this.Movement.usuario = "Sin definir";
@@ -124,21 +124,21 @@ export default {
           this.Movement.movimiento = this.Compra.producto;
           this.Movement.motivo = this.Compra.categoria;
 
-          /* axios.post(this.api + '/api/movement', this.Movement)
+          /* axios.post(this.api + '/' + this.$suc.value + '/api/movement', this.Movement)
                             .then(res => {
                                 console.log(res.data)
                             }) */
 
           if (this.seleccionCaja == "Caja") {
             console.log("----------------------");
-            axios.get(this.api + "/api/caja/open").then((res) => {
+            axios.get(this.api + '/' + this.$suc.value + "/api/caja/open").then((res) => {
               console.log("----------------------");
               this.Box = res.data;
               this.Compra.precio -= 1;
               this.Compra.precio += 1;
               this.Box.gastos += this.Compra.precio;
               console.log(this.Box);
-              axios.put(this.api + "/api/caja", this.Box).then((res) => {
+              axios.put(this.api + '/' + this.$suc.value + "/api/caja", this.Box).then((res) => {
                 console.log("Caja actualizada con exito");
                 console.log(res.status);
               });

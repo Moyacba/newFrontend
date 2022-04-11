@@ -185,7 +185,7 @@ export default {
 
         cerrarCaja: function (){
             this.Box.active = 0
-            axios.put(this.api + '/api/box', this.Box)
+            axios.put(this.api + '/' + this.$suc.value + '/api/box', this.Box)
                 .then(res => {
                     if (res.status == 200) {
                         this.makeToast()

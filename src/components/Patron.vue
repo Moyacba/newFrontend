@@ -1,96 +1,98 @@
 <template>
-  <div v-if="visible" class="padre">
-    <div>
-      <b-card class="carta">
-        <b-card-header v-if="flagPass" align="center" class="pt-0 pb-2 mb-3">
-          {{titulo}}
-        </b-card-header>
-        <b-row id="row1">
-          <b-col id="col1" cols="4">
-            <b-button
-              id="btn-patron"
-              v-for="(btn, idx) in btns1"
-              :key="idx"
-              pill
-              variant="outline-dark"
-              :pressed="btn.state"
-              @click="btnAccion(btn)"
-            >
-              <div v-if="!btn.state" id="contentBtn">
-                <b-icon icon="circle"></b-icon>
-              </div>
-              <b-btn
-                v-if="btn.state"
-                id="pruebaBtn"
+  <div>
+    <div v-if="show" class="padre">
+      <div>
+        <b-card class="carta">
+          <b-card-header v-if="flagPass" align="center" class="pt-0 pb-2 mb-3">
+            {{ titulo }}
+          </b-card-header>
+          <b-row id="row1">
+            <b-col id="col1" cols="4">
+              <b-button
+                id="btn-patron"
+                v-for="(btn, idx) in btns1"
+                :key="idx"
                 pill
-                variant="outline-light"
+                variant="outline-dark"
+                :pressed="btn.state"
+                @click="btnAccion(btn)"
               >
-                {{ btn.value }}
-              </b-btn>
-            </b-button>
-          </b-col>
-        </b-row>
-        <b-row class="mt-2" id="row1">
-          <b-col id="col1" cols="4">
-            <b-button
-              id="btn-patron"
-              v-for="(btn, idx) in btns2"
-              :key="idx"
-              pill
-              variant="outline-dark"
-              :pressed="btn.state"
-              @click="btnAccion(btn)"
-            >
-              <div v-if="!btn.state" id="contentBtn">
-                <b-icon icon="circle"></b-icon>
-              </div>
-              <b-btn
-                v-if="btn.state"
-                id="pruebaBtn"
+                <div v-if="!btn.state" id="contentBtn">
+                  <b-icon icon="circle"></b-icon>
+                </div>
+                <b-btn
+                  v-if="btn.state"
+                  id="pruebaBtn"
+                  pill
+                  variant="outline-light"
+                >
+                  {{ btn.value }}
+                </b-btn>
+              </b-button>
+            </b-col>
+          </b-row>
+          <b-row class="mt-2" id="row1">
+            <b-col id="col1" cols="4">
+              <b-button
+                id="btn-patron"
+                v-for="(btn, idx) in btns2"
+                :key="idx"
                 pill
-                variant="outline-light"
+                variant="outline-dark"
+                :pressed="btn.state"
+                @click="btnAccion(btn)"
               >
-                {{ btn.value }}
-              </b-btn>
-            </b-button>
-          </b-col>
-        </b-row>
-        <b-row class="mt-2" id="row1">
-          <b-col id="col1" cols="4">
-            <b-button
-              id="btn-patron"
-              v-for="(btn, idx) in btns3"
-              :key="idx"
-              pill
-              variant="outline-dark"
-              :pressed="btn.state"
-              @click="btnAccion(btn)"
-            >
-              <div v-if="!btn.state" id="contentBtn">
-                <b-icon icon="circle"></b-icon>
-              </div>
-              <b-btn
-                v-if="btn.state"
-                id="pruebaBtn"
+                <div v-if="!btn.state" id="contentBtn">
+                  <b-icon icon="circle"></b-icon>
+                </div>
+                <b-btn
+                  v-if="btn.state"
+                  id="pruebaBtn"
+                  pill
+                  variant="outline-light"
+                >
+                  {{ btn.value }}
+                </b-btn>
+              </b-button>
+            </b-col>
+          </b-row>
+          <b-row class="mt-2" id="row1">
+            <b-col id="col1" cols="4">
+              <b-button
+                id="btn-patron"
+                v-for="(btn, idx) in btns3"
+                :key="idx"
                 pill
-                variant="outline-light"
+                variant="outline-dark"
+                :pressed="btn.state"
+                @click="btnAccion(btn)"
               >
-                {{ btn.value }}
-              </b-btn>
-            </b-button>
-          </b-col>
-        </b-row>
-        <b-card-footer v-if="flagPass" class="mt-4 px-1">
-          <div class="contFooter">
-            <b-btn size="sm" variant="success"
-            @click="addPatron()"
-            >Agregar</b-btn>
-            <b-btn size="sm" variant="danger" @click="rstPatron()"
-              >Reiniciar</b-btn
-            >
-          </div>
-        </b-card-footer>
-      </b-card>
+                <div v-if="!btn.state" id="contentBtn">
+                  <b-icon icon="circle"></b-icon>
+                </div>
+                <b-btn
+                  v-if="btn.state"
+                  id="pruebaBtn"
+                  pill
+                  variant="outline-light"
+                >
+                  {{ btn.value }}
+                </b-btn>
+              </b-button>
+            </b-col>
+          </b-row>
+          <b-card-footer v-if="flagPass" class="mt-4 px-1">
+            <div class="contFooter">
+              <b-btn size="sm" variant="success" @click="addPatron()"
+                >Agregar</b-btn
+              >
+              <b-btn size="sm" variant="danger" @click="rstPatron()"
+                >Reiniciar</b-btn
+              >
+            </div>
+          </b-card-footer>
+        </b-card>
+      </div>
     </div>
   </div>
 </template>
@@ -101,13 +103,13 @@ import { mapActions } from "vuex";
 export default {
   name: "Patron",
 
-  props:['PatronActual'],
+  props: ["PatronActual"],
 
   data() {
     return {
-      titulo: 'Dibuje el patron',
+      titulo: "Dibuje el patron",
       flagPass: true,
-      visible: true,
+      show: true,
       patron: [],
       contBtn: 0,
       btns1: [
@@ -129,48 +131,48 @@ export default {
   },
 
   mounted() {
-    if(this.PatronActual != null){
-      this.titulo = 'Patron'
-      this.flagPass = false
+    if (this.PatronActual != null) {
+      this.titulo = "Patron";
+      this.flagPass = false;
       for (let i = 0; i < this.PatronActual.length; i++) {
         switch (this.PatronActual[i]) {
-          case '1':
-            this.btns1[0].state = true
-            this.btns1[0].value = i+1
+          case "1":
+            this.btns1[0].state = true;
+            this.btns1[0].value = i + 1;
             break;
-          case '2':
-            this.btns1[1].state = true
-            this.btns1[1].value = i+1
+          case "2":
+            this.btns1[1].state = true;
+            this.btns1[1].value = i + 1;
             break;
-          case '3':
-            this.btns1[2].state = true
-            this.btns1[2].value = i+1
+          case "3":
+            this.btns1[2].state = true;
+            this.btns1[2].value = i + 1;
             break;
-          case '4':
-            this.btns2[0].state = true
-            this.btns2[0].value = i+1
+          case "4":
+            this.btns2[0].state = true;
+            this.btns2[0].value = i + 1;
             break;
-          case '5':
-            this.btns2[1].state = true
-            this.btns2[1].value = i+1
+          case "5":
+            this.btns2[1].state = true;
+            this.btns2[1].value = i + 1;
             break;
-          case '6':
-            this.btns2[2].state = true
-            this.btns2[2].value = i+1
+          case "6":
+            this.btns2[2].state = true;
+            this.btns2[2].value = i + 1;
             break;
-          case '7':
-            this.btns3[0].state = true
-            this.btns3[0].value = i+1
+          case "7":
+            this.btns3[0].state = true;
+            this.btns3[0].value = i + 1;
             break;
-          case '8':
-            this.btns3[1].state = true
-            this.btns3[1].value = i+1
+          case "8":
+            this.btns3[1].state = true;
+            this.btns3[1].value = i + 1;
             break;
-          case '9':
-            this.btns3[2].state = true
-            this.btns3[2].value = i+1
+          case "9":
+            this.btns3[2].state = true;
+            this.btns3[2].value = i + 1;
             break;
-        
+
           default:
             break;
         }
@@ -202,9 +204,9 @@ export default {
     },
 
     addPatron() {
-      this.changePatron(this.patron)
-      this.visible = !this.visible
-    }
+      this.changePatron(this.patron);
+      this.show = !this.show;
+    },
   },
 };
 </script>

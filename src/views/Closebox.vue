@@ -166,7 +166,7 @@ export default {
     },
 
     mounted() {
-        axios.get(this.api + '/api/caja/open')
+        axios.get(this.api + '/' + this.$suc.value + '/api/caja/open')
             .then(res => {
                 this.Box = res.data
             })
@@ -206,7 +206,7 @@ export default {
         cerrarCaja: function (){
             this.Box.fechaOut = new Date()
             this.Box.active = false
-            axios.put(this.api + '/api/caja/close', this.Box)
+            axios.put(this.api + '/' + this.$suc.value + '/api/caja/close', this.Box)
                 .then(res => {
                     if (res.status == 200) {
                         this.makeToast()

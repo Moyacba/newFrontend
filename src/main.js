@@ -25,6 +25,8 @@ Vue.use(LottieVuePlayer);
 
 Vue.config.productionTip = false
 
+Vue.prototype.$suc = {value: '0'};
+
 new Vue({
   router,
   store,

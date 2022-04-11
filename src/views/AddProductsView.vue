@@ -166,7 +166,7 @@ export default {
       //       console.log("Crear nuevo producto");
       //     }
       //   });
-      axios.post(this.api + "/api/producto", this.Producto).then((res) => {
+      axios.post(this.api + '/' + this.$suc.value + "/api/producto", this.Producto).then((res) => {
         if (res.status == 200) {
           console.log(res.data)
           this.makeToast();
@@ -204,7 +204,7 @@ export default {
       this.Movement.movimiento = "Agregar Producto";
       this.Movement.motivo = Producto.producto;
 
-      axios.post(this.api + "/api/movement", this.Movement).then((res) => {
+      axios.post(this.api + '/' + this.$suc.value + "/api/movement", this.Movement).then((res) => {
         console.log(res.data);
       });
     },

@@ -90,7 +90,7 @@ export default {
   },
 
   mounted() {
-    axios.get(this.api + "/api/compra").then((res) => {
+    axios.get(this.api + '/' + this.$suc.value + "/api/compra").then((res) => {
       this.purchases = res.data;
       this.onLoader = false;
     });

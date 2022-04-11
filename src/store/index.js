@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         date: moment(new Date()).local().format('DD-MM-YYYY'),/* 
         api: 'https://modotecno-api.herokussasasapp.com', */
-        api: 'http://192.168.43.171:5000',
+        api: 'http://192.168.0.34:5000',
         cart: [],
         cartSubtotal: 0,
         title: 'Producto state',

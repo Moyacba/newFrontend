@@ -97,7 +97,7 @@ export default {
               console.log("public_id", this.results.public_id);
 
               axios
-                .put(this.api + "/api/producto/img/" + this.producto_id, {
+                .put(this.api + '/' + this.$suc.value + "/api/producto/img/" + this.producto_id, {
                   data: this.results.secure_url,
                 })
                 .then((res) => {

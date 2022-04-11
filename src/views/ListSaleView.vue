@@ -44,7 +44,7 @@
 
             <template v-slot:cell(productos)="row">
               <div>
-                {{mostrarProductos(row.item)}}
+                {{ mostrarProductos(row.item) }}
                 <!-- <b-button @click="mostrarProductos(row.item)"> </b-button> -->
               </div>
             </template>
@@ -140,7 +140,7 @@ export default {
     },
   },
   mounted() {
-    axios.get(this.api + "/api/venta").then((res) => {
+    axios.get(this.api + "/" + this.$suc.value + "/api/venta").then((res) => {
       this.products = res.data;
       this.itemsRecord = res.data;
       this.onLoader = false;
@@ -148,15 +148,15 @@ export default {
   },
   methods: {
     mostrarProductos(item) {
-      let prod = ''
-      item.productos.forEach(element => {
-        if(prod != ''){
-            prod += ' + '
-          }
-          prod += element.producto
+      let prod = "";
+      item.productos.forEach((element) => {
+        if (prod != "") {
+          prod += " + ";
+        }
+        prod += element.producto;
       });
 
-      return prod
+      return prod;
     },
 
     fechaVenta(item) {
@@ -185,19 +185,54 @@ export default {
     ////////////BUSQUEDA EN TABLA///////////////
     buscarEnTabla: function () {
       let dato = "";
+      let busqueda = parseInt(this.buscar)
+
       if (this.buscar != "") {
-        dato = this.compararBusqueda(this.buscar, this.products);
+        if (busqueda) {
+          dato = this.compararBusqueda(busqueda, this.itemsRecord, "number");
+        } else {
+          dato = this.compararBusqueda(this.buscar, this.itemsRecord, "text");
+        }
       }
       this.llenarTabla(dato);
+      
     },
-    compararBusqueda: function (valor, tabla) {
+    compararBusqueda: function (valorUp, tabla) {
+      let valor = valorUp.toLowerCase()
+
       var Coincidencias = [];
 
-      for (let i = 0; i < tabla.length; i++) {
-        var name = tabla[i].cliente.toLowerCase();
+      let index = ["-1"];
 
-        if (name.includes(valor)) {
-          Coincidencias.push(tabla[i]);
+      for (let i = 0; i < tabla.length; i++) {
+        let bandera = false
+
+        let cliente = tabla[i].cliente.toLowerCase()
+
+        if (cliente.includes(valor)) {
+          Coincidencias.push(tabla[i])
+        }
+
+        for (let o = 0; o < tabla[i].productos.length; o++) {
+          const element = tabla[i].productos[o].producto;
+          let prod = element.toLowerCase();
+
+          if (prod.includes(valor)) {
+            index.forEach((e) => {
+              if (e != i) {
+                if (bandera != true) {
+                  bandera = false
+                }
+              }else {
+                bandera = true
+              }
+            })
+            if (bandera == false) {
+              index.push(i)
+              console.log(tabla[i].cliente)
+              Coincidencias.push(tabla[i])
+            }
+          }
         }
       }
 
